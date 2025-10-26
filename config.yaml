@@ -114,3 +114,39 @@ output_formatting:
   include_timestamps: true
   # Whether to include frame references in output
   include_frame_refs: false
+
+# VLM (Vision-Language Model) settings using Ollama
+vlm:
+  # Enable VLM-enhanced analysis
+  enabled: true
+  
+  # Ollama settings
+  model: "qwen2-vl:7b"  # Options: qwen2-vl:7b, qwen2-vl:2b, llava:13b, llava:7b
+  host: "http://localhost:11434"  # Ollama server URL
+  timeout: 120  # Request timeout in seconds
+  
+  # Cache settings (improves performance by caching VLM responses)
+  use_cache: true
+  cache_path: "data/temp/ollama_vlm_cache.json"
+  
+  # Frame processing settings
+  max_frames_per_video: 20  # Maximum frames to analyze with VLM (balance speed/accuracy)
+  frame_sampling: "uniform"  # Options: uniform, key_frames, scene_based
+  
+  # Analysis settings (which analyses to perform with VLM)
+  default_analyses: ['ingredients', 'actions', 'tools', 'measurements']
+  enable_temporal_analysis: true  # Analyze changes between frames
+  enable_cuisine_detection: true  # Detect cuisine type and cooking style
+  
+  # VLM query settings
+  temperature: 0.1  # Lower = more deterministic (0.0-1.0)
+  confidence_threshold: 0.6  # Minimum confidence for accepting VLM results
+  
+  # Hybrid mode settings (combine traditional + VLM approaches)
+  processing_mode: "hybrid"  # Options: vlm_only, hybrid, traditional_only
+  fallback_to_traditional: true  # Use traditional pipeline if VLM fails
+  use_vlm_for_validation: true  # Use VLM to validate traditional results
+  
+  # Performance optimization
+  batch_processing: false  # Process multiple frames together (experimental)
+  parallel_queries: false  # Run multiple VLM queries in parallel (experimental)
