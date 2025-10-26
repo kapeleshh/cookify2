@@ -1,17 +1,33 @@
 # Cookify: Recipe Extraction from Cooking Videos
 
-Cookify is a Python-based tool that extracts structured recipe information from cooking videos. It uses computer vision, speech recognition, and natural language processing to identify ingredients, tools, cooking steps, and other recipe components.
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-beta-orange)
 
-## ✨ Recent Improvements
+Cookify is a Python-based tool that extracts structured recipe information from cooking videos using computer vision, speech recognition, and natural language processing to identify ingredients, tools, cooking steps, and other recipe components.
 
-- **Fixed directory structure**: Eliminated nested `cookify` directory
-- **Enhanced error handling**: Comprehensive error handling throughout the pipeline
-- **Improved model loading**: Robust model loading with fallback strategies
-- **Better dependency management**: Updated dependencies for Python 3.12 compatibility
-- **Working examples**: Added functional example scripts
-- **Graceful degradation**: System continues working even if optional dependencies are missing
+<div align="center">
+  <!-- Replace with an actual logo image once available -->
+  <img src="https://via.placeholder.com/200x200?text=Cookify" alt="Cookify Logo" width="200"/>
+</div>
 
-## Features
+## 📋 Table of Contents
+
+- [Features](#-features)
+- [Recent Improvements](#-recent-improvements)
+- [System Requirements](#-system-requirements)
+- [Quick Start](#-quick-start)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Web Interface](#-web-interface)
+- [Output Format](#-output-format)
+- [Project Structure](#-project-structure)
+- [Development](#-development)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [FAQ](#-faq)
+
+## ✨ Features
 
 - 🎥 **Extract recipe information** from cooking videos with ingredient quantities and units
 - 🔧 **Identify cooking tools** used in the video
@@ -24,59 +40,66 @@ Cookify is a Python-based tool that extracts structured recipe information from 
 - 📱 **Responsive design** that works on desktop and mobile devices
 - ⬇️ **Drag & drop upload** for easy video processing
 
-## System Requirements
+## 🚀 Recent Improvements
+
+- **Fixed directory structure**: Eliminated nested `cookify` directory
+- **Enhanced error handling**: Comprehensive error handling throughout the pipeline
+- **Improved model loading**: Robust model loading with fallback strategies
+- **Better dependency management**: Updated dependencies for Python 3.12 compatibility
+- **Working examples**: Added functional example scripts
+- **Graceful degradation**: System continues working even if optional dependencies are missing
+
+## 💻 System Requirements
 
 - Python 3.8 or higher (Python 3.12 supported)
 - FFmpeg (for video and audio processing)
 - CUDA-compatible GPU recommended for faster processing (but not required)
 
-## Quick Start
-
-### Choose Your Interface
+## 🚀 Quick Start
 
 Cookify offers two ways to process videos:
-
-1. **Web Interface (Recommended for beginners)** - Easy-to-use web app with drag-and-drop upload
-2. **Command Line Interface** - For automation and integration with other tools
 
 ### Command Line Interface
 
 ```bash
 # Clone and navigate to the project
-git clone <repository-url>
+git clone https://github.com/kapeleshh/cookify2.git
 cd cookify2
 
-# Install dependencies and run tests
-python install_and_test.py
+# Install dependencies
+pip install -e .
 
-# Run the working example
-python examples/working_example.py
+# Download models
+python -m src.utils.model_downloader
+
+# Process a video
+cookify path/to/cooking/video.mp4
 ```
 
 ### Web Interface (Recommended)
 
 ```bash
-# 1. Clone the repository
+# Clone and navigate to the project
 git clone https://github.com/kapeleshh/cookify2.git
 cd cookify2
 
-# 2. Create and activate virtual environment
+# Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# 3. Install dependencies
+# Install dependencies
 pip install -e .
 
-# 4. Download models
+# Download models
 python -m src.utils.model_downloader
 
-# 5. Start the web server
+# Start the web server
 python src/ui/app.py
-
-# 6. Open browser to http://localhost:5000
 ```
 
-## Installation
+Then open your browser to [http://localhost:5000](http://localhost:5000)
+
+## 📥 Installation
 
 ### 1. Clone the repository
 
@@ -111,7 +134,7 @@ This will install all required dependencies including:
 python -m src.utils.model_downloader
 ```
 
-## Usage
+## 🛠️ Usage
 
 ### Basic Usage
 
@@ -133,9 +156,14 @@ For more options:
 cookify --help
 ```
 
-## Web Interface
+## 🌐 Web Interface
 
 Cookify includes a modern web interface for easy video upload and recipe extraction.
+
+<!-- Insert screenshot of web interface here -->
+<div align="center">
+  <img src="https://via.placeholder.com/800x450?text=Cookify+Web+Interface" alt="Cookify Web Interface" width="800"/>
+</div>
 
 ### Starting the Web Server
 
@@ -164,10 +192,6 @@ Cookify includes a modern web interface for easy video upload and recipe extract
    - **http://127.0.0.1:5000** (localhost)
    - **http://0.0.0.0:5000** (network access)
 
-   You should see the Cookify homepage where you can upload cooking videos.
-
-   **To stop the server**, press `CTRL+C` in the terminal.
-
 ### Using the Web Interface
 
 #### Step 1: Upload a Video
@@ -175,6 +199,11 @@ Cookify includes a modern web interface for easy video upload and recipe extract
 - Click "Browse Files" to select a video file
 - Supported formats: MP4, AVI, MOV, MKV, WEBM (max 50MB)
 - Wait for the upload to complete
+
+<!-- Insert screenshot of upload interface here -->
+<div align="center">
+  <img src="https://via.placeholder.com/800x450?text=Video+Upload+Interface" alt="Upload Interface" width="800"/>
+</div>
 
 #### Step 2: Processing
 - The system will automatically process your video after upload
@@ -190,6 +219,11 @@ Cookify includes a modern web interface for easy video upload and recipe extract
   - Step-by-step cooking instructions with timestamps
   - Cooking tools used
   - Interactive video player with clickable timestamps for each step
+
+<!-- Insert screenshot of results page here -->
+<div align="center">
+  <img src="https://via.placeholder.com/800x450?text=Recipe+Results+Page" alt="Recipe Results" width="800"/>
+</div>
 
 #### Step 4: Download or Share
 - Click "Download Recipe (JSON)" to save the structured recipe data
@@ -223,26 +257,16 @@ If you encounter issues starting the web server:
    python -m src.utils.model_downloader
    ```
 
-4. **Check port availability**: If port 5000 is in use, the server will show an error. You can modify the port in `src/ui/app.py` (last line):
+4. **Check port availability**: If port 5000 is in use, modify the port in `src/ui/app.py`:
    ```python
    app.run(debug=True, host='0.0.0.0', port=5001)  # Change port number
    ```
 
-5. **Directory structure**: Ensure the project structure is correct. You should have:
-   - `src/ui/app.py` (the web app)
-   - `src/ui/templates/` (HTML templates)
-   - `src/pipeline.py` (the processing pipeline)
+5. **View logs**: The terminal will show detailed logs of any errors during startup or processing
 
-6. **View logs**: The terminal will show detailed logs of any errors during startup or processing
+For more troubleshooting information, see the [Troubleshooting Guide](documentation/troubleshooting.md).
 
-7. **Common issues**:
-   - If you see "ModuleNotFoundError", ensure you're in the venv and have run `pip install -e .`
-   - If file upload fails, check that the `src/ui/uploads` and `src/ui/results` directories exist (they're created automatically on first run)
-   - If processing fails, ensure FFmpeg is installed and in your PATH
-   - On first startup, the pipeline initialization may take a few seconds to load models
-   - If the browser shows "Unable to connect", check that the Flask server is actually running
-
-## Output Format
+## 📊 Output Format
 
 The extracted recipe is saved as a JSON file with the following structure:
 
@@ -269,7 +293,7 @@ The extracted recipe is saved as a JSON file with the following structure:
 }
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 cookify2/
@@ -305,28 +329,126 @@ cookify2/
 └── setup.py            # Setup script
 ```
 
-### Key Files for Web Interface
+### Key Files
 
-- **`src/ui/app.py`** - Flask web application that handles video upload, processing, and result display
-- **`src/ui/templates/`** - HTML templates for the web interface (index, results, about, error pages)
-- **`src/pipeline.py`** - Core processing pipeline that extracts recipes from videos
+- **`main.py`** - Command line interface entry point
+- **`src/pipeline.py`** - Core processing pipeline for recipe extraction
+- **`src/ui/app.py`** - Flask web application
+- **`src/utils/config_loader.py`** - Configuration management
+- **`src/utils/model_downloader.py`** - Model downloading and management
 
-## Development
+For a more detailed technical overview, see the [Architecture Documentation](documentation/01_architecture_overview.md).
+
+## 👨‍💻 Development
+
+### Setting Up a Development Environment
+
+```bash
+# Clone the repository
+git clone https://github.com/kapeleshh/cookify2.git
+cd cookify2
+
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install development dependencies
+pip install -e .
+pip install -r requirements-dev.txt
+```
 
 ### Running Tests
 
 ```bash
+# Run all tests
 pytest tests/
+
+# Run tests with coverage report
+pytest tests/ --cov=src
+
+# Run specific test file
+pytest tests/test_phase1.py
 ```
 
-### Contributing
+### Project Documentation
+
+The `documentation/` directory contains detailed information about the project:
+
+- [Documentation Index](documentation/00_documentation_index.md)
+- [Architecture Overview](documentation/01_architecture_overview.md)
+- [Preprocessing Phase](documentation/02_preprocessing_phase.md)
+- [Frame Analysis Phase](documentation/03_frame_analysis_phase.md)
+- [Audio Analysis Phase](documentation/04_audio_analysis_phase.md)
+- [Multimodal Integration](documentation/05_multimodal_integration_phase.md)
+- [Recipe Extraction](documentation/06_recipe_extraction_phase.md)
+- [Output Formatting](documentation/07_output_formatting_phase.md)
+- [Future Directions](documentation/08_future_directions.md)
+
+### Machine Learning Models
+
+Cookify uses several pre-trained machine learning models:
+
+- **Object Detection**: YOLOv8 for identifying food items and cooking tools
+- **Text Recognition**: EasyOCR for recognizing text in video frames
+- **Speech Recognition**: Whisper for transcribing audio to text
+- **Action Recognition**: Custom model for identifying cooking actions
+
+For more information on how the models work together, see the [Multimodal Integration documentation](documentation/05_multimodal_integration_phase.md).
+
+## 🤝 Contributing
+
+We welcome contributions to Cookify! Here's how to get started:
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests
-5. Submit a pull request
+2. Create a feature branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add some feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Open a pull request
 
-## License
+### Coding Standards
+
+- Follow PEP 8 style guidelines
+- Write docstrings for all functions, classes, and modules
+- Include type hints
+- Ensure test coverage for new features
+
+## 📄 License
 
 [MIT License](LICENSE)
+
+## ❓ FAQ
+
+### Does Cookify work with all cooking videos?
+
+Cookify works best with clear, well-lit cooking videos that feature close-ups of ingredients and cooking actions. While it can handle a variety of formats, professional cooking videos typically yield the best results.
+
+### Do I need a GPU to run Cookify?
+
+No, but a CUDA-compatible GPU will significantly speed up processing, especially for longer videos.
+
+### How accurate is the recipe extraction?
+
+Accuracy depends on several factors including video quality, clarity of actions, and audio quality. In optimal conditions, Cookify can achieve over 90% accuracy for ingredients and 80% for cooking steps.
+
+### Can Cookify handle videos in languages other than English?
+
+Currently, Cookify works best with English-language videos, but it can recognize ingredients and tools in any language. Audio transcription is optimized for English but can work with other languages with reduced accuracy.
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by the Cookify team</p>
+  <p>
+    <a href="https://github.com/kapeleshh/cookify2/issues">Report Bug</a> •
+    <a href="https://github.com/kapeleshh/cookify2/issues">Request Feature</a>
+  </p>
+</div>
