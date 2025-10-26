@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookify - Extract Recipes from Cooking Videos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px;
+            background-color: #f8f9fa;
+        }
+        .jumbotron {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.3rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: #aaa;
+            background-color: #f8f9fa;
+        }
+        .upload-area.active {
+            border-color: #28a745;
+            background-color: #f0fff0;
+        }
+        .progress {
+            display: none;
+            margin-top: 1rem;
+        }
+        #result-container {
+            display: none;
+            margin-top: 2rem;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Cookify</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="jumbotron text-center mb-4">
+            <h1 class="display-4">Cookify</h1>
+            <p class="lead">Extract structured recipes from cooking videos using AI</p>
+            <hr class="my-4">
+            <p>Upload a cooking video and get a detailed recipe with ingredients, steps, and more.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div id="upload-container">
+                    <div id="upload-area" class="upload-area">
+                        <h3>Drag & Drop Video Here</h3>
+                        <p>or</p>
+                        <input type="file" id="file-input" class="d-none" accept=".mp4,.avi,.mov,.mkv,.webm">
+                        <button id="browse-button" class="btn btn-primary">Browse Files</button>
+                        <p class="mt-2 text-muted">Supported formats: MP4, AVI, MOV, MKV, WEBM (Max 50MB)</p>
+                    </div>
+                    <div class="progress">
+                        <div id="upload-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <div id="upload-status" class="mt-2"></div>
+                </div>
+
+                <div id="processing-container" style="display: none;">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <h4 class="mt-3">Processing Video...</h4>
+                        <p>This may take a few minutes depending on the video length.</p>
+                    </div>
+                </div>
+
+                <div id="result-container">
+                    <div class="alert alert-success">
+                        <h4>Processing Complete!</h4>
+                        <p>Your recipe has been extracted successfully.</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a id="view-result-btn" href="#" class="btn btn-success">View Recipe</a>
+                        <button id="upload-another-btn" class="btn btn-outline-primary">Upload Another Video</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon">📋</div>
+                    <h3>Structured Recipes</h3>
+                    <p>Extract ingredients, quantities, cooking steps, and more from any cooking video.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Advanced AI</h3>
+                    <p>Powered by state-of-the-art computer vision and natural language processing models.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="feature-icon">📱</div>
+                    <h3>Easy to Use</h3>
+                    <p>Simple interface to upload videos and get structured recipes in seconds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <p>© 2025 Cookify - Extract Recipes from Cooking Videos</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const browseButton = document.getElementById('browse-button');
+            const uploadProgress = document.getElementById('upload-progress');
+            const uploadStatus = document.getElementById('upload-status');
+            const progressBar = document.querySelector('.progress');
+            const uploadContainer = document.getElementById('upload-container');
+            const processingContainer = document.getElementById('processing-container');
+            const resultContainer = document.getElementById('result-container');
+            const viewResultBtn = document.getElementById('view-result-btn');
+            const uploadAnotherBtn = document.getElementById('upload-another-btn');
+
+            // Handle drag and drop events
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                uploadArea.classList.add('active');
+            }
+
+            function unhighlight() {
+                uploadArea.classList.remove('active');
+            }
+
+            // Handle file drop
+            uploadArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            // Handle file selection via browse button
+            browseButton.addEventListener('click', function() {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+
+            function handleFiles(files) {
+                if (files.length === 0) return;
+                
+                const file = files[0];
+                
+                // Check file type
+                const allowedTypes = ['.mp4', '.avi', '.mov', '.mkv', '.webm'];
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                
+                if (!allowedTypes.includes(fileExtension)) {
+                    uploadStatus.innerHTML = '<div class="alert alert-danger">Invalid file type. Please upload a video file (MP4, AVI, MOV, MKV, WEBM).</div>';
+                    return;
+                }
+                
+                // Check file size (max 50MB)
+                if (file.size > 50 * 1024 * 1024) {
+                    uploadStatus.innerHTML = '<div class="alert alert-danger">File too large. Maximum size is 50MB.</div>';
+                    return;
+                }
+                
+                uploadFile(file);
+            }
+
+            function uploadFile(file) {
+                const xhr = new XMLHttpRequest();
+                const formData = new FormData();
+                
+                formData.append('file', file);
+                
+                xhr.open('POST', '/upload', true);
+                
+                xhr.upload.addEventListener('progress', function(e) {
+                    if (e.lengthComputable) {
+                        const percentComplete = (e.loaded / e.total) * 100;
+                        progressBar.style.display = 'flex';
+                        uploadProgress.style.width = percentComplete + '%';
+                        uploadProgress.textContent = Math.round(percentComplete) + '%';
+                    }
+                });
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        
+                        if (response.success) {
+                            uploadStatus.innerHTML = '<div class="alert alert-success">File uploaded successfully. Processing...</div>';
+                            processVideo(response.id);
+                        } else {
+                            uploadStatus.innerHTML = '<div class="alert alert-danger">Upload failed: ' + response.error + '</div>';
+                        }
+                    } else {
+                        uploadStatus.innerHTML = '<div class="alert alert-danger">Upload failed. Please try again.</div>';
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    uploadStatus.innerHTML = '<div class="alert alert-danger">Upload failed. Please try again.</div>';
+                };
+                
+                xhr.send(formData);
+            }
+
+            function processVideo(uniqueId) {
+                // Show processing container
+                uploadContainer.style.display = 'none';
+                processingContainer.style.display = 'block';
+                
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/process/' + uniqueId, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        
+                        if (response.success) {
+                            // Show result container
+                            processingContainer.style.display = 'none';
+                            resultContainer.style.display = 'block';
+                            
+                            // Set view result button URL
+                            viewResultBtn.href = '/view/' + uniqueId;
+                        } else {
+                            processingContainer.style.display = 'none';
+                            uploadContainer.style.display = 'block';
+                            uploadStatus.innerHTML = '<div class="alert alert-danger">Processing failed: ' + response.error + '</div>';
+                        }
+                    } else {
+                        processingContainer.style.display = 'none';
+                        uploadContainer.style.display = 'block';
+                        uploadStatus.innerHTML = '<div class="alert alert-danger">Processing failed. Please try again.</div>';
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    processingContainer.style.display = 'none';
+                    uploadContainer.style.display = 'block';
+                    uploadStatus.innerHTML = '<div class="alert alert-danger">Processing failed. Please try again.</div>';
+                };
+                
+                xhr.send(JSON.stringify({}));
+            }
+
+            // Upload another video button
+            uploadAnotherBtn.addEventListener('click', function() {
+                resultContainer.style.display = 'none';
+                uploadContainer.style.display = 'block';
+                uploadStatus.innerHTML = '';
+                progressBar.style.display = 'none';
+                uploadProgress.style.width = '0%';
+                uploadProgress.textContent = '';
+                fileInput.value = '';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+# Cookify Configuration File
+
+# General settings
+general:
+  # Output directory for processed files
+  output_dir: "cookify/data/output"
+  # Temporary directory for intermediate files
+  temp_dir: "cookify/data/temp"
+  # Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+  log_level: "INFO"
+  # Whether to save intermediate results
+  save_intermediate: true
+
+# Video preprocessing settings
+preprocessing:
+  # Frame extraction rate (frames per second)
+  frame_rate: 1
+  # Whether to extract high-resolution frames for text recognition
+  high_res_frames: true
+  # Audio quality for transcription (0-9, higher is better)
+  audio_quality: 0
+  # Whether to use scene detection for frame extraction
+  use_scene_detection: true
+
+# Object detection settings
+object_detection:
+  # Confidence threshold for object detection
+  confidence_threshold: 0.25
+  # Whether to filter for cooking-related objects only
+  filter_cooking_objects: true
+  # Maximum number of objects to detect per frame
+  max_objects: 20
+  # Model to use (yolov8n, yolov8s, yolov8m, yolov8l, yolov8x)
+  model: "yolov8x"
+
+# Scene detection settings
+scene_detection:
+  # Threshold for content detection
+  threshold: 30.0
+  # Minimum scene length in frames
+  min_scene_len: 15
+
+# Text recognition settings
+text_recognition:
+  # Confidence threshold for text recognition
+  confidence_threshold: 0.5
+  # Languages to detect
+  languages: ["en"]
+  # Whether to enhance text regions before OCR
+  enhance_text: true
+
+# Action recognition settings
+action_recognition:
+  # Confidence threshold for action recognition
+  confidence_threshold: 0.5
+  # Number of frames to use for action recognition
+  frame_window: 16
+  # Whether to use optical flow for action recognition
+  use_optical_flow: false
+
+# Audio transcription settings
+transcription:
+  # Whisper model to use (tiny, base, small, medium, large)
+  model: "base"
+  # Language to transcribe (null for auto-detection)
+  language: null
+  # Whether to use timestamps
+  timestamps: true
+  # Whether to translate non-English audio to English
+  translate: false
+
+# NLP processing settings
+nlp:
+  # spaCy model to use
+  model: "en_core_web_lg"
+  # Whether to use custom NER for cooking entities
+  use_custom_ner: true
+  # Minimum confidence for entity recognition
+  entity_confidence: 0.7
+
+# Recipe extraction settings
+recipe_extraction:
+  # Whether to infer missing ingredients from steps
+  infer_missing_ingredients: true
+  # Whether to normalize ingredient quantities
+  normalize_quantities: true
+  # Whether to group similar steps
+  group_similar_steps: false
+  # Minimum confidence for recipe elements
+  min_confidence: 0.6
+
+# Output formatting settings
+output_formatting:
+  # Output format (json, yaml, markdown)
+  format: "json"
+  # Whether to include confidence scores in output
+  include_confidence: false
+  # Whether to include timestamps in output
+  include_timestamps: true
+  # Whether to include frame references in output
+  include_frame_refs: false
