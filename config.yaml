@@ -3,9 +3,9 @@
 # General settings
 general:
   # Output directory for processed files
-  output_dir: "cookify/data/output"
+  output_dir: "data/output"
   # Temporary directory for intermediate files
-  temp_dir: "cookify/data/temp"
+  temp_dir: "data/temp"
   # Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
   log_level: "INFO"
   # Whether to save intermediate results

@@ -26,9 +26,9 @@ class VideoProcessor:
             frame_rate (float, optional): Frame rate for extraction. Defaults to 1 fps.
             temp_dir (str, optional): Directory for temporary files. Defaults to system temp.
         """
-        self.output_dir = Path(output_dir) if output_dir else Path("cookify/data/processed")
+        self.output_dir = Path(output_dir) if output_dir else Path("data/processed")
         self.frame_rate = frame_rate
-        self.temp_dir = Path(temp_dir) if temp_dir else Path("cookify/data/temp")
+        self.temp_dir = Path(temp_dir) if temp_dir else Path("data/temp")
         
         # Create directories if they don't exist
         os.makedirs(self.output_dir, exist_ok=True)

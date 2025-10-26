@@ -1,3 +1,0 @@
-"""
-Cookify Utilities Module
-"""

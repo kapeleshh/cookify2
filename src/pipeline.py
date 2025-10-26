@@ -11,18 +11,18 @@ from pathlib import Path
 from tqdm import tqdm
 from typing import Dict, List, Optional, Union, Any
 
-from .preprocessing.video_processor import VideoProcessor
-from .frame_analysis.object_detector import ObjectDetector
-from .frame_analysis.scene_detector import SceneDetector
-from .frame_analysis.text_recognizer import TextRecognizer
-from .frame_analysis.action_recognizer import ActionRecognizer
-from .audio_analysis.transcriber import AudioTranscriber
-from .audio_analysis.nlp_processor import NLPProcessor
-from .integration.multimodal_integrator import MultimodalIntegrator
-from .recipe_extraction.recipe_extractor import RecipeExtractor
-from .output_formatting.formatter import OutputFormatter
-from .utils.config_loader import load_config
-from .utils.logger import setup_pipeline_logging, CookifyLogger
+from src.preprocessing.video_processor import VideoProcessor
+from src.frame_analysis.object_detector import ObjectDetector
+from src.frame_analysis.scene_detector import SceneDetector
+from src.frame_analysis.text_recognizer import TextRecognizer
+from src.frame_analysis.action_recognizer import ActionRecognizer
+from src.audio_analysis.transcriber import AudioTranscriber
+from src.audio_analysis.nlp_processor import NLPProcessor
+from src.integration.multimodal_integrator import MultimodalIntegrator
+from src.recipe_extraction.recipe_extractor import RecipeExtractor
+from src.output_formatting.formatter import OutputFormatter
+from src.utils.config_loader import load_config
+from src.utils.logger import setup_pipeline_logging, CookifyLogger
 import psutil
 import gc
 
@@ -104,7 +104,7 @@ class Pipeline:
         
         # Initialize audio transcriber if available
         try:
-            from .audio_analysis.transcriber import AudioTranscriber
+            from src.audio_analysis.transcriber import AudioTranscriber
             self.audio_transcriber = AudioTranscriber(
                 model_name=self.config["transcription"]["model"],
                 language=self.config["transcription"]["language"],
@@ -246,7 +246,7 @@ class Pipeline:
         
         # Create output directory if it doesn't exist
         try:
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
         except OSError as e:
             raise VideoProcessingError(f"Failed to create output directory: {e}")
         
@@ -270,7 +270,7 @@ class Pipeline:
             self.cookify_logger.start_timer("video_preprocessing")
             self.logger.info("Preprocessing video...")
             try:
-            frames, audio_path, metadata = self.video_processor.process(video_path)
+                frames, audio_path, metadata = self.video_processor.process(video_path)
                 processing_results["metadata"] = metadata
                 duration = self.cookify_logger.end_timer("video_preprocessing")
                 self._end_performance_monitoring("video_preprocessing")
@@ -292,7 +292,7 @@ class Pipeline:
             # Step 2: Detect scenes
             logger.info("Detecting scenes...")
             try:
-            scenes = self.scene_detector.detect(video_path)
+                scenes = self.scene_detector.detect(video_path)
                 processing_results["scenes"] = scenes
                 logger.info(f"Scene detection completed: {len(scenes)} scenes detected")
             except Exception as e:
@@ -305,12 +305,12 @@ class Pipeline:
             self._start_performance_monitoring("object_detection")
             logger.info("Detecting objects in frames...")
             try:
-            object_detections = self.object_detector.detect(frames)
-            
-            # Filter for cooking-related objects if configured
-            if self.config["object_detection"]["filter_cooking_objects"]:
-                object_detections = self.object_detector.filter_cooking_related(object_detections)
+                object_detections = self.object_detector.detect(frames)
                 
+                # Filter for cooking-related objects if configured
+                if self.config["object_detection"]["filter_cooking_objects"]:
+                    object_detections = self.object_detector.filter_cooking_related(object_detections)
+                    
                 processing_results["object_detections"] = object_detections
                 duration = self._end_performance_monitoring("object_detection")
                 logger.info(f"Object detection completed: {len(object_detections)} detections in {duration:.2f}s")
@@ -401,13 +401,13 @@ class Pipeline:
             
             # Save output
             try:
-            with open(output_path, 'w') as f:
-                json.dump(formatted_output, f, indent=2)
-                self.logger.info(f"Recipe extracted and saved to {output_path}")
-                
-                # Log recipe extraction summary
-                self.cookify_logger.log_recipe_extraction(formatted_output)
-                
+                with open(output_path, 'w') as f:
+                    json.dump(formatted_output, f, indent=2)
+                    self.logger.info(f"Recipe extracted and saved to {output_path}")
+                    
+                    # Log recipe extraction summary
+                    self.cookify_logger.log_recipe_extraction(formatted_output)
+                    
             except Exception as e:
                 error_msg = f"Failed to save output: {e}"
                 self.cookify_logger.log_error_with_context(e, {"step": "save_output", "output_path": output_path})

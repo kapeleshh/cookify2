@@ -1,209 +1,130 @@
 """
-Enhanced logging utilities for Cookify pipeline
+Logger - Enhanced logging for the cookify application
 """
 
 import os
 import logging
-import logging.handlers
-from pathlib import Path
-from typing import Optional, Dict, Any
-import json
 import time
-from datetime import datetime
+from pathlib import Path
 
 class CookifyLogger:
-    """
-    Enhanced logger for Cookify with structured logging and debugging capabilities.
-    """
+    """Enhanced logger for cookify with timers and structured logging."""
     
-    def __init__(self, name: str, log_dir: str = "logs", level: str = "INFO"):
+    def __init__(self, config=None):
         """
-        Initialize the Cookify logger.
+        Initialize the logger.
         
         Args:
-            name (str): Logger name.
-            log_dir (str): Directory for log files.
-            level (str): Logging level.
+            config (dict, optional): Logger configuration. Defaults to None.
         """
-        self.name = name
-        self.log_dir = Path(log_dir)
-        self.level = getattr(logging, level.upper())
+        self.config = config or {"logging": {"level": "INFO", "log_dir": "logs"}}
+        self.logger = self._setup_logger()
+        self.timers = {}
         
-        # Create log directory
-        self.log_dir.mkdir(parents=True, exist_ok=True)
+    def _setup_logger(self):
+        """Set up the logger."""
+        logger = logging.getLogger("cookify")
+        level_name = self.config["logging"].get("level", "INFO")
+        level = getattr(logging, level_name, logging.INFO)
+        logger.setLevel(level)
         
-        # Initialize logger
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(self.level)
+        # Add console handler if no handlers
+        if not logger.handlers:
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(level)
+            formatter = logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            )
+            console_handler.setFormatter(formatter)
+            logger.addHandler(console_handler)
+            
+            # Add file handler
+            log_dir = self.config["logging"].get("log_dir", "logs")
+            os.makedirs(log_dir, exist_ok=True)
+            file_handler = logging.FileHandler(
+                os.path.join(log_dir, "cookify.log")
+            )
+            file_handler.setLevel(level)
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
         
-        # Clear existing handlers
-        self.logger.handlers.clear()
-        
-        # Setup handlers
-        self._setup_handlers()
-        
-        # Performance tracking
-        self.performance_data = {}
-        self.start_times = {}
+        return logger
     
-    def _setup_handlers(self):
-        """Setup logging handlers."""
-        # Console handler
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(self.level)
-        console_format = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
-        console_handler.setFormatter(console_format)
-        self.logger.addHandler(console_handler)
-        
-        # File handler for general logs
-        file_handler = logging.handlers.RotatingFileHandler(
-            self.log_dir / "cookify.log",
-            maxBytes=10*1024*1024,  # 10MB
-            backupCount=5
-        )
-        file_handler.setLevel(self.level)
-        file_format = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
-        )
-        file_handler.setFormatter(file_format)
-        self.logger.addHandler(file_handler)
-        
-        # Error handler for errors only
-        error_handler = logging.handlers.RotatingFileHandler(
-            self.log_dir / "errors.log",
-            maxBytes=5*1024*1024,  # 5MB
-            backupCount=3
-        )
-        error_handler.setLevel(logging.ERROR)
-        error_handler.setFormatter(file_format)
-        self.logger.addHandler(error_handler)
-        
-        # Debug handler for detailed debugging
-        debug_handler = logging.handlers.RotatingFileHandler(
-            self.log_dir / "debug.log",
-            maxBytes=20*1024*1024,  # 20MB
-            backupCount=2
-        )
-        debug_handler.setLevel(logging.DEBUG)
-        debug_format = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
-        )
-        debug_handler.setFormatter(debug_format)
-        self.logger.addHandler(debug_handler)
+    def get_logger(self):
+        """Get the logger instance."""
+        return self.logger
     
-    def start_timer(self, operation: str) -> None:
-        """Start timing an operation."""
-        self.start_times[operation] = time.time()
-        self.logger.debug(f"Started timing: {operation}")
+    def start_timer(self, name):
+        """
+        Start a timer with the given name.
+        
+        Args:
+            name (str): Timer name.
+        """
+        self.timers[name] = time.time()
+        self.logger.debug(f"Timer started: {name}")
     
-    def end_timer(self, operation: str) -> float:
-        """End timing an operation and return duration."""
-        if operation not in self.start_times:
-            self.logger.warning(f"No start time found for operation: {operation}")
-            return 0.0
+    def end_timer(self, name):
+        """
+        End a timer and return the duration.
         
-        duration = time.time() - self.start_times[operation]
-        del self.start_times[operation]
+        Args:
+            name (str): Timer name.
+            
+        Returns:
+            float: Duration in seconds.
+        """
+        if name not in self.timers:
+            self.logger.warning(f"Timer not found: {name}")
+            return 0
         
-        # Store performance data
-        if operation not in self.performance_data:
-            self.performance_data[operation] = []
-        self.performance_data[operation].append(duration)
-        
-        self.logger.info(f"Operation '{operation}' completed in {duration:.2f}s")
+        duration = time.time() - self.timers[name]
+        self.logger.info(f"Timer {name} ended: {duration:.2f} seconds")
         return duration
     
-    def log_performance_summary(self) -> Dict[str, Any]:
-        """Log and return performance summary."""
-        summary = {}
-        for operation, times in self.performance_data.items():
-            if times:
-                summary[operation] = {
-                    "count": len(times),
-                    "total_time": sum(times),
-                    "avg_time": sum(times) / len(times),
-                    "min_time": min(times),
-                    "max_time": max(times)
-                }
+    def log_processing_step(self, step, details=None):
+        """
+        Log a processing step with details.
         
-        self.logger.info("Performance Summary:")
-        for operation, stats in summary.items():
-            self.logger.info(
-                f"  {operation}: {stats['count']} calls, "
-                f"avg: {stats['avg_time']:.2f}s, "
-                f"total: {stats['total_time']:.2f}s"
-            )
+        Args:
+            step (str): Step name.
+            details (dict, optional): Step details. Defaults to None.
+        """
+        details_str = f" - {details}" if details else ""
+        self.logger.info(f"Processing step: {step}{details_str}")
+    
+    def log_error_with_context(self, error, context=None):
+        """
+        Log an error with context.
         
-        return summary
+        Args:
+            error (Exception): The error to log.
+            context (dict, optional): Error context. Defaults to None.
+        """
+        context_str = f" - Context: {context}" if context else ""
+        self.logger.error(f"Error: {error}{context_str}", exc_info=True)
     
-    def log_processing_step(self, step: str, details: Dict[str, Any] = None) -> None:
-        """Log a processing step with details."""
-        message = f"Processing step: {step}"
-        if details:
-            message += f" - {json.dumps(details, indent=2)}"
-        self.logger.info(message)
-    
-    def log_error_with_context(self, error: Exception, context: Dict[str, Any] = None) -> None:
-        """Log an error with additional context."""
-        error_msg = f"Error: {str(error)}"
-        if context:
-            error_msg += f" - Context: {json.dumps(context, indent=2)}"
-        self.logger.error(error_msg, exc_info=True)
-    
-    def log_data_quality(self, data_type: str, quality_metrics: Dict[str, Any]) -> None:
-        """Log data quality metrics."""
-        self.logger.info(f"Data quality for {data_type}: {json.dumps(quality_metrics, indent=2)}")
-    
-    def log_model_performance(self, model_name: str, metrics: Dict[str, Any]) -> None:
-        """Log model performance metrics."""
-        self.logger.info(f"Model performance for {model_name}: {json.dumps(metrics, indent=2)}")
-    
-    def log_recipe_extraction(self, recipe_data: Dict[str, Any]) -> None:
-        """Log recipe extraction results."""
-        summary = {
-            "title": recipe_data.get("title", "Unknown"),
-            "ingredients_count": len(recipe_data.get("ingredients", [])),
-            "tools_count": len(recipe_data.get("tools", [])),
-            "steps_count": len(recipe_data.get("steps", [])),
-            "servings": recipe_data.get("servings", "Unknown")
-        }
-        self.logger.info(f"Recipe extracted: {json.dumps(summary, indent=2)}")
-    
-    def get_logger(self) -> logging.Logger:
-        """Get the underlying logger instance."""
-        return self.logger
+    def log_recipe_extraction(self, recipe):
+        """
+        Log recipe extraction summary.
+        
+        Args:
+            recipe (dict): Extracted recipe.
+        """
+        self.logger.info(
+            f"Recipe extracted: {recipe.get('title', 'Unknown')} "
+            f"({len(recipe.get('ingredients', []))} ingredients, "
+            f"{len(recipe.get('steps', []))} steps)"
+        )
 
-def setup_pipeline_logging(config: Dict[str, Any]) -> CookifyLogger:
+def setup_pipeline_logging(config=None):
     """
-    Setup logging for the pipeline based on configuration.
+    Set up logging for the pipeline.
     
     Args:
-        config (dict): Configuration dictionary.
+        config (dict, optional): Logger configuration. Defaults to None.
         
     Returns:
-        CookifyLogger: Configured logger instance.
+        CookifyLogger: Logger instance.
     """
-    log_config = config.get("logging", {})
-    log_dir = log_config.get("log_dir", "logs")
-    log_level = log_config.get("level", "INFO")
-    
-    return CookifyLogger("cookify_pipeline", log_dir, log_level)
-
-def create_component_logger(component_name: str, config: Dict[str, Any]) -> CookifyLogger:
-    """
-    Create a logger for a specific component.
-    
-    Args:
-        component_name (str): Name of the component.
-        config (dict): Configuration dictionary.
-        
-    Returns:
-        CookifyLogger: Configured logger instance.
-    """
-    log_config = config.get("logging", {})
-    log_dir = log_config.get("log_dir", "logs")
-    log_level = log_config.get("level", "INFO")
-    
-    return CookifyLogger(f"cookify_{component_name}", log_dir, log_level)
+    return CookifyLogger(config)

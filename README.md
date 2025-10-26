@@ -2,7 +2,7 @@
 
 Cookify is a Python-based tool that extracts structured recipe information from cooking videos. It uses computer vision, speech recognition, and natural language processing to identify ingredients, tools, cooking steps, and other recipe components.
 
-## ✨ Recent Improvements (cai_improvements branch)
+## ✨ Recent Improvements
 
 - **Fixed directory structure**: Eliminated nested `cookify` directory
 - **Enhanced error handling**: Comprehensive error handling throughout the pipeline
@@ -44,7 +44,7 @@ Cookify offers two ways to process videos:
 ```bash
 # Clone and navigate to the project
 git clone <repository-url>
-cd cookify
+cd cookify2
 
 # Install dependencies and run tests
 python install_and_test.py
@@ -57,8 +57,8 @@ python examples/working_example.py
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/kapeleshh/cookify.git
-cd cookify
+git clone https://github.com/kapeleshh/cookify2.git
+cd cookify2
 
 # 2. Create and activate virtual environment
 python -m venv venv
@@ -68,10 +68,10 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -e .
 
 # 4. Download models
-python -m cookify.src.utils.model_downloader
+python -m src.utils.model_downloader
 
 # 5. Start the web server
-python cookify/src/ui/app.py
+python src/ui/app.py
 
 # 6. Open browser to http://localhost:5000
 ```
@@ -81,8 +81,8 @@ python cookify/src/ui/app.py
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/kapeleshh/cookify.git
-cd cookify
+git clone https://github.com/kapeleshh/cookify2.git
+cd cookify2
 ```
 
 ### 2. Create a virtual environment (recommended)
@@ -108,7 +108,7 @@ This will install all required dependencies including:
 ### 4. Download pre-trained models
 
 ```bash
-python -m cookify.src.utils.model_downloader
+python -m src.utils.model_downloader
 ```
 
 ## Usage
@@ -148,10 +148,8 @@ Cookify includes a modern web interface for easy video upload and recipe extract
 
 3. **Start the Flask web server** from the project root:
    ```bash
-   python cookify/src/ui/app.py
+   python src/ui/app.py
    ```
-   
-   (Note: Make sure you're in the project root directory, not inside the cookify subdirectory)
 
    You should see output like:
    ```
@@ -218,11 +216,11 @@ If you encounter issues starting the web server:
    pip install flask
    ```
 
-2. **Verify Python path**: Make sure you're running from the project root directory (the directory containing the cookify subdirectory)
+2. **Verify Python path**: Make sure you're running from the project root directory
 
 3. **Ensure models are downloaded**: The pipeline requires model files. Run:
    ```bash
-   python -m cookify.src.utils.model_downloader
+   python -m src.utils.model_downloader
    ```
 
 4. **Check port availability**: If port 5000 is in use, the server will show an error. You can modify the port in `src/ui/app.py` (last line):
@@ -230,10 +228,10 @@ If you encounter issues starting the web server:
    app.run(debug=True, host='0.0.0.0', port=5001)  # Change port number
    ```
 
-5. **Directory structure**: From the project root, ensure the project structure is correct. You should have:
-   - `cookify/src/ui/app.py` (the web app)
-   - `cookify/src/ui/templates/` (HTML templates)
-   - `cookify/src/pipeline.py` (the processing pipeline)
+5. **Directory structure**: Ensure the project structure is correct. You should have:
+   - `src/ui/app.py` (the web app)
+   - `src/ui/templates/` (HTML templates)
+   - `src/pipeline.py` (the processing pipeline)
 
 6. **View logs**: The terminal will show detailed logs of any errors during startup or processing
 
@@ -274,7 +272,7 @@ The extracted recipe is saved as a JSON file with the following structure:
 ## Project Structure
 
 ```
-cookify/
+cookify2/
 ├── data/               # Data directory for input/output files
 │   ├── input/          # Input videos
 │   └── output/         # Output recipes and processed data
@@ -287,6 +285,10 @@ cookify/
 │   ├── recipe_extraction/ # Recipe structure extraction
 │   ├── output_formatting/ # Output formatting
 │   ├── utils/          # Utility functions
+│   │   ├── config_loader.py  # Configuration management
+│   │   ├── logger.py         # Enhanced logging system
+│   │   ├── model_downloader.py # Model management
+│   │   └── performance_optimizer.py # Performance optimization
 │   ├── ui/             # Web interface
 │   │   ├── app.py      # Flask web application
 │   │   ├── templates/  # HTML templates
@@ -294,8 +296,12 @@ cookify/
 │   │   └── results/    # Processing results
 │   └── pipeline.py     # Main processing pipeline
 ├── tests/              # Unit tests
+├── documentation/      # Project documentation
+├── examples/           # Example scripts
 ├── main.py             # Main entry point (CLI)
 ├── requirements.txt    # Dependencies
+├── requirements-dev.txt # Development dependencies
+├── config.yaml         # Configuration file
 └── setup.py            # Setup script
 ```
 

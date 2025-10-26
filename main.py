@@ -13,8 +13,8 @@ from pathlib import Path
 # Add src directory to path for imports
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
-from pipeline import Pipeline
-from utils.model_downloader import download_models
+from src.pipeline import Pipeline
+from src.utils.model_downloader import download_models
 
 # Configure logging
 logging.basicConfig(
