@@ -90,6 +90,48 @@ def index():
     """
     return render_template('index.html')
 
+@app.route('/api/vlm/status')
+def vlm_status():
+    """Check VLM status and return as JSON."""
+    global pipeline
+    
+    try:
+        # Initialize pipeline if needed
+        if pipeline is None:
+            init_pipeline()
+        
+        if hasattr(pipeline, 'vlm_engine') and pipeline.vlm_engine:
+            is_connected = pipeline.vlm_engine.test_connection()
+            models = pipeline.vlm_engine.list_available_models()
+            model_name = pipeline.config.get('vlm', {}).get('model', 'unknown')
+            
+            return jsonify({
+                'enabled': True,
+                'connected': is_connected,
+                'model': model_name,
+                'available_models': models,
+                'status': 'active' if is_connected else 'disconnected'
+            })
+        else:
+            vlm_enabled = False
+            if hasattr(pipeline, 'config'):
+                vlm_enabled = pipeline.config.get('vlm', {}).get('enabled', False)
+            
+            return jsonify({
+                'enabled': vlm_enabled,
+                'connected': False,
+                'message': 'VLM not initialized' if vlm_enabled else 'VLM disabled in config',
+                'status': 'disabled'
+            })
+    except Exception as e:
+        logger.error(f"VLM status check failed: {e}")
+        return jsonify({
+            'enabled': False,
+            'connected': False,
+            'error': str(e),
+            'status': 'error'
+        }), 500
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     """

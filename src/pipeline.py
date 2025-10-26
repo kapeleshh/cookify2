@@ -119,6 +119,43 @@ class Pipeline:
         self.multimodal_integrator = None  # MultimodalIntegrator()
         self.recipe_extractor = None  # RecipeExtractor()
         self.output_formatter = None  # OutputFormatter()
+        
+        # Initialize VLM components if enabled
+        self.vlm_engine = None
+        self.vlm_frame_analyzer = None
+        
+        if self.config.get("vlm", {}).get("enabled", False):
+            logger.info("Initializing VLM components...")
+            try:
+                from src.vlm_analysis.ollama_engine import OllamaVLMEngine
+                from src.vlm_analysis.ollama_frame_analyzer import OllamaFrameAnalyzer
+                
+                self.vlm_engine = OllamaVLMEngine(
+                    model=self.config["vlm"]["model"],
+                    host=self.config["vlm"]["host"],
+                    use_cache=self.config["vlm"]["use_cache"],
+                    cache_path=self.config["vlm"]["cache_path"],
+                    timeout=self.config["vlm"].get("timeout", 120)
+                )
+                
+                # Test connection
+                if self.vlm_engine.test_connection():
+                    self.vlm_frame_analyzer = OllamaFrameAnalyzer(
+                        ollama_engine=self.vlm_engine,
+                        config=self.config
+                    )
+                    logger.info("✓ VLM components initialized successfully")
+                else:
+                    raise ConnectionError("Cannot connect to Ollama server")
+                    
+            except Exception as e:
+                logger.error(f"Failed to initialize VLM: {e}")
+                logger.warning("Falling back to traditional pipeline")
+                logger.info("Make sure Ollama is running: 'ollama serve'")
+                self.vlm_engine = None
+                self.vlm_frame_analyzer = None
+        else:
+            logger.info("VLM disabled in config")
     
     def _validate_input(self, video_path: str) -> None:
         """
@@ -323,6 +360,45 @@ class Pipeline:
                 processing_results["warnings"].append(error_msg)
                 object_detections = []
             
+            # Step 3.5: VLM Frame Analysis (if enabled)
+            if self.vlm_frame_analyzer is not None:
+                self._start_performance_monitoring("vlm_analysis")
+                logger.info("Performing VLM frame analysis...")
+                
+                try:
+                    # Select key frames for VLM analysis
+                    max_frames = self.config["vlm"]["max_frames_per_video"]
+                    key_frame_paths = self._select_key_frames(frames, max_frames)
+                    
+                    # Get analysis types from config
+                    analysis_types = self.config["vlm"].get(
+                        "default_analyses",
+                        ['ingredients', 'actions', 'tools', 'measurements']
+                    )
+                    
+                    # Perform VLM analysis on key frames
+                    vlm_results = self.vlm_frame_analyzer.analyze_key_frames(
+                        key_frame_paths,
+                        max_frames=max_frames
+                    )
+                    
+                    processing_results["vlm_analysis"] = vlm_results
+                    duration = self._end_performance_monitoring("vlm_analysis")
+                    logger.info(f"VLM analysis completed: {len(vlm_results)} frames analyzed in {duration:.2f}s")
+                    
+                    # Optimize memory after VLM analysis
+                    self._optimize_memory_usage()
+                    
+                except Exception as e:
+                    self._end_performance_monitoring("vlm_analysis")
+                    error_msg = f"VLM analysis failed: {e}"
+                    logger.warning(error_msg)
+                    processing_results["warnings"].append(error_msg)
+                    processing_results["vlm_analysis"] = []
+            else:
+                logger.info("VLM analysis skipped (not enabled)")
+                processing_results["vlm_analysis"] = []
+            
             # Step 4: Recognize text in frames (placeholder)
             logger.info("Recognizing text in frames...")
             text_detections = []  # self.text_recognizer.recognize(frames)
@@ -385,6 +461,7 @@ class Pipeline:
             formatted_output = recipe
             
             # Add processing metadata
+            vlm_frames_analyzed = len(processing_results.get("vlm_analysis", []))
             formatted_output["_processing_metadata"] = {
                 "processing_errors": processing_results["errors"],
                 "processing_warnings": processing_results["warnings"],
@@ -395,8 +472,11 @@ class Pipeline:
                     "text_recognizer": False,
                     "action_recognizer": False,
                     "audio_transcriber": self.audio_transcriber is not None,
-                    "nlp_processor": False
-                }
+                    "nlp_processor": False,
+                    "vlm_analyzer": self.vlm_frame_analyzer is not None,
+                    "vlm_frames_analyzed": vlm_frames_analyzed
+                },
+                "processing_mode": "hybrid" if (self.vlm_frame_analyzer is not None and vlm_frames_analyzed > 0) else "traditional"
             }
             
             # Save output
@@ -451,10 +531,26 @@ class Pipeline:
             # Extract ingredients from object detections and audio
             try:
                 ingredients = self._extract_ingredients_from_objects(integrated_data.get("object_detections", []))
-                logger.info(f"Ingredients extracted: {len(ingredients)} items")
+                logger.info(f"Traditional ingredients extracted: {len(ingredients)} items")
             except Exception as e:
                 logger.warning(f"Ingredient extraction failed: {e}")
                 ingredients = []
+            
+            # Enhance with VLM analysis if available
+            vlm_results = integrated_data.get("vlm_analysis", [])
+            if vlm_results and self.vlm_frame_analyzer is not None:
+                logger.info("Enhancing recipe extraction with VLM analysis...")
+                
+                # Extract VLM-detected ingredients
+                try:
+                    vlm_ingredients = self._extract_vlm_ingredients(vlm_results)
+                    logger.info(f"VLM ingredients extracted: {len(vlm_ingredients)} items")
+                    
+                    # Merge traditional and VLM ingredients
+                    ingredients = self._merge_ingredient_lists(ingredients, vlm_ingredients)
+                    logger.info(f"Merged ingredients: {len(ingredients)} total")
+                except Exception as e:
+                    logger.warning(f"VLM ingredient extraction failed: {e}")
             
             # Enhance ingredients with audio transcription if available
             transcription = integrated_data.get("transcription", {})
@@ -468,10 +564,22 @@ class Pipeline:
             # Extract tools from object detections
             try:
                 tools = self._extract_tools_from_objects(integrated_data.get("object_detections", []))
-                logger.info(f"Tools extracted: {len(tools)} items")
+                logger.info(f"Traditional tools extracted: {len(tools)} items")
             except Exception as e:
                 logger.warning(f"Tool extraction failed: {e}")
                 tools = []
+            
+            # Enhance with VLM tools if available
+            if vlm_results and self.vlm_frame_analyzer is not None:
+                try:
+                    vlm_tools = self._extract_vlm_tools(vlm_results)
+                    logger.info(f"VLM tools extracted: {len(vlm_tools)} items")
+                    
+                    # Merge tools (deduplicate)
+                    tools = list(set(tools + vlm_tools))
+                    logger.info(f"Merged tools: {len(tools)} total")
+                except Exception as e:
+                    logger.warning(f"VLM tool extraction failed: {e}")
             
             # Extract steps from scenes, objects, and audio
             try:
@@ -822,6 +930,111 @@ class Pipeline:
             return "6"
         else:
             return "8"
+    
+    def _select_key_frames(self, frames: List[str], max_frames: int) -> List[str]:
+        """
+        Select key frames for VLM analysis.
+        
+        Args:
+            frames: List of all frame paths
+            max_frames: Maximum number of frames to select
+            
+        Returns:
+            List of selected frame paths
+        """
+        sampling_method = self.config.get("vlm", {}).get("frame_sampling", "uniform")
+        
+        if len(frames) <= max_frames:
+            return frames
+        
+        if sampling_method == "uniform":
+            # Uniform sampling
+            step = len(frames) / max_frames
+            indices = [int(i * step) for i in range(max_frames)]
+            return [frames[i] for i in indices]
+        
+        elif sampling_method == "key_frames":
+            # TODO: Use scene changes or other heuristics
+            # For now, fall back to uniform
+            step = len(frames) / max_frames
+            indices = [int(i * step) for i in range(max_frames)]
+            return [frames[i] for i in indices]
+        
+        else:
+            # Default to uniform
+            step = len(frames) / max_frames
+            indices = [int(i * step) for i in range(max_frames)]
+            return [frames[i] for i in indices]
+    
+    def _extract_vlm_ingredients(self, vlm_results: List[Dict]) -> List[Dict]:
+        """Extract ingredients from VLM analysis results."""
+        ingredients = []
+        seen = set()
+        
+        for result in vlm_results:
+            analyses = result.get('analyses', {})
+            ingredient_data = analyses.get('ingredients', {})
+            
+            for ing in ingredient_data.get('ingredients', []):
+                name = ing.get('name', '').lower().strip()
+                if name and name not in seen:
+                    seen.add(name)
+                    ingredients.append({
+                        'name': ing.get('name', '').title(),
+                        'qty': ing.get('quantity', ing.get('qty', '')),
+                        'unit': ing.get('unit', ''),
+                        'state': ing.get('state', ''),
+                        'source': 'vlm'
+                    })
+        
+        logger.info(f"Extracted {len(ingredients)} ingredients from VLM")
+        return ingredients
+    
+    def _extract_vlm_tools(self, vlm_results: List[Dict]) -> List[str]:
+        """Extract tools from VLM analysis results."""
+        tools = set()
+        
+        for result in vlm_results:
+            analyses = result.get('analyses', {})
+            tool_data = analyses.get('tools', {})
+            
+            for tool in tool_data.get('tools', []):
+                if tool:
+                    tools.add(tool.strip().title())
+        
+        logger.info(f"Extracted {len(tools)} tools from VLM")
+        return list(tools)
+    
+    def _merge_ingredient_lists(
+        self,
+        traditional: List[Dict],
+        vlm: List[Dict]
+    ) -> List[Dict]:
+        """Merge ingredient lists from traditional and VLM extraction."""
+        merged = {}
+        
+        # Add traditional ingredients
+        for ing in traditional:
+            name = ing['name'].lower()
+            merged[name] = ing.copy()
+            merged[name]['source'] = 'traditional'
+        
+        # Add or update with VLM ingredients (VLM takes precedence for details)
+        for ing in vlm:
+            name = ing['name'].lower()
+            if name in merged:
+                # VLM data takes precedence if it has more detail
+                if ing.get('qty') and not merged[name].get('qty'):
+                    merged[name]['qty'] = ing['qty']
+                if ing.get('unit') and not merged[name].get('unit'):
+                    merged[name]['unit'] = ing['unit']
+                if ing.get('state'):
+                    merged[name]['state'] = ing['state']
+                merged[name]['source'] = 'hybrid'
+            else:
+                merged[name] = ing
+        
+        return list(merged.values())
     
     def print_summary(self, recipe):
         """
