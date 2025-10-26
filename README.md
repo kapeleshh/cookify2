@@ -66,6 +66,10 @@ Cookify offers two ways to process videos:
 git clone https://github.com/kapeleshh/cookify2.git
 cd cookify2
 
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
 # Install dependencies
 pip install -e .
 
@@ -110,9 +114,71 @@ cd cookify2
 
 ### 2. Create a virtual environment (recommended)
 
+Virtual environments help isolate project dependencies, preventing conflicts between different Python projects on your system.
+
+#### Why use a virtual environment?
+
+- Isolates project dependencies from system Python packages
+- Ensures consistent environment across different machines
+- Makes it easy to specify and install exact dependency versions
+- Simplifies package management and project sharing
+
+#### Creating a virtual environment
+
+**On Windows:**
 ```bash
+# Create a virtual environment named "venv"
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Activate the virtual environment
+venv\Scripts\activate
+
+# Your terminal prompt should change, indicating the environment is active
+# (venv) C:\Users\username\cookify2>
+```
+
+**On macOS/Linux:**
+```bash
+# Create a virtual environment named "venv"
+python3 -m venv venv
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Your terminal prompt should change, indicating the environment is active
+# (venv) username@hostname:~/cookify2$
+```
+
+#### Using other virtual environment tools
+
+**With Anaconda/Miniconda:**
+```bash
+# Create a conda environment
+conda create -n cookify python=3.10
+
+# Activate the environment
+conda activate cookify
+```
+
+**With Pipenv:**
+```bash
+# Install pipenv if you don't have it
+pip install pipenv
+
+# Create environment and install dependencies
+pipenv install
+```
+
+#### Deactivating the virtual environment
+
+When you're done working with Cookify, you can deactivate the virtual environment:
+
+```bash
+# For venv
+deactivate
+
+# For conda
+conda deactivate
 ```
 
 ### 3. Install the package and dependencies
@@ -121,7 +187,29 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -e .
 ```
 
-This will install all required dependencies including:
+This command installs the package in development mode with all its dependencies. Here's what it does:
+
+- The `-e` flag stands for "editable" mode, which creates a link to the source code
+- The `.` refers to the current directory (where `setup.py` is located)
+- It installs all dependencies listed in the `setup.py` file
+- Changes to the source code take effect immediately without reinstalling
+
+#### Alternative: Using requirements.txt
+
+You can also install dependencies using the requirements file:
+
+```bash
+pip install -r requirements.txt
+```
+
+**What's the difference?**
+
+- `pip install -e .` installs the current project as an editable package plus all dependencies
+- `pip install -r requirements.txt` only installs the dependencies listed in the requirements file
+- Using `-e .` is recommended for development as it allows the `cookify` command to work from anywhere
+- The requirements file is useful for deployment or when you don't need to modify the code
+
+The dependencies include:
 - OpenCV and FFmpeg for video processing
 - PyTorch and YOLOv8 for object detection
 - EasyOCR for text recognition

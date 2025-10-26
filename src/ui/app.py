@@ -12,10 +12,10 @@ from pathlib import Path
 from flask import Flask, request, render_template, jsonify, send_from_directory, redirect, url_for
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 
-from cookify.src.pipeline import Pipeline
-from cookify.src.utils.performance_optimizer import PerformanceOptimizer
+from src.pipeline import Pipeline
 
 # Configure logging
 logging.basicConfig(
@@ -43,7 +43,6 @@ app.config['RESULTS_FOLDER'] = str(RESULTS_FOLDER)
 
 # Initialize pipeline
 pipeline = None
-optimizer = None
 
 def allowed_file(filename):
     """
@@ -59,12 +58,12 @@ def allowed_file(filename):
 
 def init_pipeline():
     """
-    Initialize the pipeline with optimizations.
+    Initialize the pipeline.
     
     Returns:
         Pipeline: Initialized pipeline.
     """
-    global pipeline, optimizer
+    global pipeline
     
     if pipeline is None:
         logger.info("Initializing pipeline")
@@ -72,11 +71,7 @@ def init_pipeline():
         # Create pipeline
         pipeline = Pipeline()
         
-        # Optimize pipeline
-        optimizer = PerformanceOptimizer()
-        pipeline = optimizer.optimize_pipeline(pipeline)
-        
-        logger.info("Pipeline initialized and optimized")
+        logger.info("Pipeline initialized")
     
     return pipeline
 
@@ -159,7 +154,7 @@ def process_video(unique_id):
         logger.info(f"Processing video: {file_path}")
         start_time = time.time()
         
-        result = pipeline.process_video(file_path)
+        result = pipeline.process(file_path)
         
         end_time = time.time()
         processing_time = end_time - start_time
@@ -295,8 +290,8 @@ def about():
     return render_template('about.html')
 
 if __name__ == '__main__':
-    # Initialize pipeline
-    init_pipeline()
-    
+    # Note: Pipeline is initialized on first request to avoid slow startup
     # Run app
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Set debug=False to avoid terminal issues when running in background
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

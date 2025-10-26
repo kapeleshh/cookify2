@@ -12,21 +12,14 @@ from tqdm import tqdm
 logger = logging.getLogger(__name__)
 
 # Dictionary of model URLs and their MD5 checksums
+# Note: Only models that require manual downloading are listed here.
+# - Scene Detection: PySceneDetect uses algorithmic detection (no model needed)
+# - Text Recognition: EasyOCR automatically downloads its own models on first use
 MODEL_URLS = {
     "object_detection": {
         "url": "https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt",
         "md5": "37b40b33987a193a84fe679917df75f3",
         "local_path": "models/object_detection/yolov8n.pt"
-    },
-    "scene_detection": {
-        "url": "https://example.com/models/scene_detection_model.pt",
-        "md5": "placeholder_md5_checksum",
-        "local_path": "models/scene_detection/model.pt"
-    },
-    "text_recognition": {
-        "url": "https://example.com/models/text_recognition_model.pt",
-        "md5": "placeholder_md5_checksum",
-        "local_path": "models/text_recognition/model.pt"
     }
 }
 
