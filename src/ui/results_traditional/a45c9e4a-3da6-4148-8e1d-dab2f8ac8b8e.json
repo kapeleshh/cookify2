@@ -1,0 +1,74 @@
+{
+  "video_path": "/mnt/c/Users/13077/Desktop/cookify2/src/ui/uploads_traditional/a45c9e4a-3da6-4148-8e1d-dab2f8ac8b8e.mp4",
+  "processing_time": 109.34428715705872,
+  "frames_analyzed": 13,
+  "recipe": {
+    "title": "A45C9E4A-3Da6-4148-8E1D-Dab2F8Ac8B8E",
+    "ingredients": [
+      {
+        "name": "Various Ingredients",
+        "quantity": "5",
+        "unit": "",
+        "state": "",
+        "source": "yolo_detection"
+      },
+      {
+        "name": "Liquid Ingredient (Oil/Sauce)",
+        "quantity": "",
+        "unit": "",
+        "state": "",
+        "source": "yolo_detection"
+      }
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "description": "Mixing the ingredients",
+        "timestamp": "~10s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 2,
+        "description": "Stirring the ingredients",
+        "timestamp": "~20s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 3,
+        "description": "Serving the ingredients",
+        "timestamp": "~30s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 4,
+        "description": "Pouring the ingredients",
+        "timestamp": "~40s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 5,
+        "description": "Seasoning the ingredients",
+        "timestamp": "~50s",
+        "source": "action_recognition"
+      }
+    ],
+    "tools": [
+      "cup",
+      "spoon",
+      "fork",
+      "bowl"
+    ],
+    "cuisine": null,
+    "estimated_time": null
+  },
+  "metadata": {
+    "method": "traditional_cv",
+    "vlm_enabled": false,
+    "techniques": [
+      "yolo",
+      "easyocr",
+      "scenedetect",
+      "heuristics"
+    ]
+  }
+}

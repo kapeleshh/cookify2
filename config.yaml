@@ -121,16 +121,16 @@ vlm:
   enabled: true
   
   # Ollama settings
-  model: "qwen2-vl:7b"  # Options: qwen2-vl:7b, qwen2-vl:2b, llava:13b, llava:7b
+  model: "llava:7b"  # Options: qwen2-vl:7b, qwen2-vl:2b, llava:13b, llava:7b
   host: "http://localhost:11434"  # Ollama server URL
-  timeout: 120  # Request timeout in seconds
+  timeout: 300  # Request timeout in seconds (increased for CPU)
   
   # Cache settings (improves performance by caching VLM responses)
   use_cache: true
   cache_path: "data/temp/ollama_vlm_cache.json"
   
   # Frame processing settings
-  max_frames_per_video: 20  # Maximum frames to analyze with VLM (balance speed/accuracy)
+  max_frames_per_video: 5  # Maximum frames to analyze with VLM (reduced for CPU performance)
   frame_sampling: "uniform"  # Options: uniform, key_frames, scene_based
   
   # Analysis settings (which analyses to perform with VLM)

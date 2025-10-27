@@ -1,0 +1,308 @@
+{
+    "title": "Hot Dog, Carrot and Donut Recipe",
+    "servings": "2",
+    "ingredients": [
+        {
+            "name": "Hot Dog",
+            "qty": "1",
+            "unit": "cup"
+        },
+        {
+            "name": "Carrot",
+            "qty": "2-3",
+            "unit": "cups"
+        },
+        {
+            "name": "Donut",
+            "qty": "2-3",
+            "unit": "cups"
+        }
+    ],
+    "tools": [
+        "Spoon",
+        "Knife",
+        "Fork",
+        "Cup",
+        "Bowl",
+        "Bottle"
+    ],
+    "steps": [
+        {
+            "idx": 1,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "prepare",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 1: Prepare Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 2,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 2: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 3,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 3: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 4,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 4: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 5,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 5: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 6,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 6: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 7,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 7: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 8,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 8: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 9,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 9: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 10,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 10: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 11,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "chop",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 11: Chop Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        },
+        {
+            "idx": 12,
+            "start": 0.0,
+            "end": 24.15474665281625,
+            "action": "serve",
+            "objects": [
+                "Spoon",
+                "Person",
+                "Carrot",
+                "Hot Dog",
+                "Donut",
+                "Cup",
+                "Bowl",
+                "Fork",
+                "Knife",
+                "Bottle",
+                "Dining Table"
+            ],
+            "details": "Step 12: Serve Spoon, Person, Carrot and 8 more items",
+            "temp": null,
+            "duration": 24.15474665281625
+        }
+    ],
+    "_processing_metadata": {
+        "processing_errors": [],
+        "processing_warnings": [],
+        "components_used": {
+            "video_processor": true,
+            "scene_detector": true,
+            "object_detector": true,
+            "text_recognizer": false,
+            "action_recognizer": false,
+            "audio_transcriber": true,
+            "nlp_processor": false
+        }
+    }
+}

@@ -13,22 +13,7 @@ class CookingPrompts:
     @staticmethod
     def identify_ingredients() -> str:
         """Prompt for identifying ingredients in a frame."""
-        return """Analyze this cooking video frame and identify ALL visible ingredients.
-
-For each ingredient, provide:
-1. Ingredient name
-2. Estimated quantity (if visible)
-3. Unit of measurement (cups, tablespoons, pieces, etc.)
-4. State/preparation (raw, chopped, diced, etc.)
-
-Format your response as a JSON list:
-[
-  {"name": "ingredient", "quantity": "amount", "unit": "unit", "state": "state"},
-  ...
-]
-
-If quantities are not visible, estimate based on visual appearance or use "to taste".
-Only list ingredients that are clearly visible in the frame."""
+        return """List all visible ingredients in this cooking image. For each ingredient, provide the name, quantity if visible, and state (raw/chopped/etc). Keep it simple and clear."""
     
     @staticmethod
     def identify_actions() -> str:

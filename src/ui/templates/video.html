@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookify - Video Recipe Extraction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .main-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .upload-zone {
+            border: 3px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        .upload-zone:hover {
+            border-color: #667eea;
+            background: #e9ecef;
+        }
+        .upload-zone.drag-over {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        #video-preview {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .progress {
+            height: 30px;
+            font-size: 16px;
+        }
+        .recipe-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .ingredient-item {
+            padding: 8px;
+            background: white;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #28a745;
+        }
+        .step-item {
+            padding: 12px;
+            background: white;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .tool-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 3px;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-card card">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h2 class="mb-0"><i class="bi bi-camera-video"></i> Cookify - Video Recipe Extraction</h2>
+            <span id="vlm-status-badge" class="badge fs-6">Checking...</span>
+        </div>
+        
+        <div class="card-body">
+            <!-- Upload Section -->
+            <div id="upload-section">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4><i class="bi bi-upload"></i> Upload Cooking Video</h4>
+                        <p class="text-muted">Upload a cooking video to automatically extract the recipe using AI Vision</p>
+                        
+                        <div class="upload-zone" id="upload-zone">
+                            <i class="bi bi-cloud-upload" style="font-size: 48px; color: #667eea;"></i>
+                            <h5>Drag & Drop Video Here</h5>
+                            <p class="text-muted">or click to browse</p>
+                            <p class="small text-muted">Supported: MP4, AVI, MOV, MKV, WEBM (Max 500MB)</p>
+                            <input type="file" id="video-input" accept="video/*" style="display:none;">
+                        </div>
+                        
+                        <video id="video-preview" controls style="display:none;"></video>
+                        
+                        <div id="upload-info" style="display:none;" class="alert alert-info mt-3">
+                            <strong>File:</strong> <span id="file-name"></span><br>
+                            <strong>Size:</strong> <span id="file-size"></span>
+                        </div>
+                        
+                        <button id="process-btn" class="btn btn-primary btn-lg w-100 mt-3" style="display:none;">
+                            <i class="bi bi-play-circle"></i> Process Video & Extract Recipe
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Processing Section -->
+            <div id="processing-section" style="display:none;">
+                <h4><i class="bi bi-gear-fill"></i> Processing Video...</h4>
+                <div class="progress my-3">
+                    <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" style="width: 0%">0%</div>
+                </div>
+                <p id="progress-message" class="text-center">Initializing...</p>
+            </div>
+            
+            <!-- Results Section -->
+            <div id="results-section" style="display:none;">
+                <h3><i class="bi bi-check-circle-fill text-success"></i> Recipe Extracted!</h3>
+                
+                <div class="recipe-card">
+                    <h4 id="recipe-title"></h4>
+                    <p class="text-muted">
+                        <i class="bi bi-clock"></i> Processing Time: <span id="processing-time"></span> | 
+                        <i class="bi bi-camera"></i> Frames Analyzed: <span id="frames-analyzed"></span>
+                    </p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="recipe-card">
+                            <h5><i class="bi bi-basket"></i> Ingredients (<span id="ingredient-count"></span>)</h5>
+                            <div id="ingredients-list"></div>
+                        </div>
+                        
+                        <div class="recipe-card">
+                            <h5><i class="bi bi-tools"></i> Tools & Equipment</h5>
+                            <div id="tools-list"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="recipe-card">
+                            <h5><i class="bi bi-list-ol"></i> Cooking Steps (<span id="steps-count"></span>)</h5>
+                            <div id="steps-list"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <button id="new-video-btn" class="btn btn-primary">
+                        <i class="bi bi-arrow-left"></i> Process Another Video
+                    </button>
+                    <button id="download-json-btn" class="btn btn-success">
+                        <i class="bi bi-download"></i> Download Recipe JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let selectedFile = null;
+        let currentId = null;
+        let statusCheckInterval = null;
+        
+        // Check VLM status
+        async function checkVLMStatus() {
+            try {
+                const response = await fetch('/api/vlm/status');
+                const data = await response.json();
+                
+                const badge = document.getElementById('vlm-status-badge');
+                
+                if (data.connected) {
+                    badge.className = 'badge bg-success fs-6';
+                    badge.innerHTML = `<i class="bi bi-check-circle"></i> VLM Active (${data.model})`;
+                } else if (data.enabled) {
+                    badge.className = 'badge bg-warning fs-6';
+                    badge.innerHTML = '<i class="bi bi-exclamation-triangle"></i> VLM Disconnected';
+                } else {
+                    badge.className = 'badge bg-secondary fs-6';
+                    badge.textContent = 'VLM Disabled';
+                }
+            } catch (error) {
+                console.error('Status check failed:', error);
+            }
+        }
+        
+        // Upload zone interactions
+        const uploadZone = document.getElementById('upload-zone');
+        const videoInput = document.getElementById('video-input');
+        
+        uploadZone.addEventListener('click', () => videoInput.click());
+        
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+        
+        videoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+        
+        function handleFileSelect(file) {
+            selectedFile = file;
+            
+            // Show preview
+            const preview = document.getElementById('video-preview');
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+            
+            // Show file info
+            document.getElementById('file-name').textContent = file.name;
+            document.getElementById('file-size').textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            document.getElementById('upload-info').style.display = 'block';
+            document.getElementById('process-btn').style.display = 'block';
+        }
+        
+        // Process button
+        document.getElementById('process-btn').addEventListener('click', async () => {
+            if (!selectedFile) return;
+            
+            // Upload video
+            const formData = new FormData();
+            formData.append('video', selectedFile);
+            
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentId = data.id;
+                    
+                    // Hide upload section, show processing
+                    document.getElementById('upload-section').style.display = 'none';
+                    document.getElementById('processing-section').style.display = 'block';
+                    
+                    // Start processing
+                    await startProcessing(currentId);
+                } else {
+                    alert('Upload failed: ' + data.error);
+                }
+            } catch (error) {
+                alert('Upload failed: ' + error.message);
+            }
+        });
+        
+        async function startProcessing(id) {
+            try {
+                // Trigger processing
+                fetch(`/api/process/${id}`, { method: 'POST' });
+                
+                // Poll for status
+                statusCheckInterval = setInterval(async () => {
+                    const response = await fetch(`/api/status/${id}`);
+                    const status = await response.json();
+                    
+                    updateProgress(status);
+                    
+                    if (status.status === 'complete') {
+                        clearInterval(statusCheckInterval);
+                        await loadResult(id);
+                    } else if (status.status === 'error') {
+                        clearInterval(statusCheckInterval);
+                        alert('Processing failed: ' + status.message);
+                        location.reload();
+                    }
+                }, 1000);
+            } catch (error) {
+                alert('Processing failed: ' + error.message);
+            }
+        }
+        
+        function updateProgress(status) {
+            const progressBar = document.getElementById('progress-bar');
+            const progressMessage = document.getElementById('progress-message');
+            
+            progressBar.style.width = status.progress + '%';
+            progressBar.textContent = status.progress + '%';
+            progressMessage.textContent = status.message;
+        }
+        
+        async function loadResult(id) {
+            try {
+                const response = await fetch(`/api/result/${id}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayRecipe(data.result);
+                }
+            } catch (error) {
+                alert('Failed to load result: ' + error.message);
+            }
+        }
+        
+        function displayRecipe(result) {
+            const recipe = result.recipe;
+            
+            // Hide processing, show results
+            document.getElementById('processing-section').style.display = 'none';
+            document.getElementById('results-section').style.display = 'block';
+            
+            // Set basic info
+            document.getElementById('recipe-title').textContent = recipe.title;
+            document.getElementById('processing-time').textContent = result.processing_time.toFixed(2) + 's';
+            document.getElementById('frames-analyzed').textContent = result.frames_analyzed;
+            
+            // Display ingredients
+            const ingredientsList = document.getElementById('ingredients-list');
+            document.getElementById('ingredient-count').textContent = recipe.ingredients.length;
+            ingredientsList.innerHTML = recipe.ingredients.map(ing => `
+                <div class="ingredient-item">
+                    <strong>${ing.name}</strong>
+                    ${ing.quantity ? ' - ' + ing.quantity : ''}
+                    ${ing.unit ? ' ' + ing.unit : ''}
+                    ${ing.state ? ' (' + ing.state + ')' : ''}
+                </div>
+            `).join('');
+            
+            // Display tools
+            const toolsList = document.getElementById('tools-list');
+            toolsList.innerHTML = recipe.tools.map(tool => 
+                `<span class="tool-badge">${tool}</span>`
+            ).join('');
+            
+            // Display steps
+            const stepsList = document.getElementById('steps-list');
+            document.getElementById('steps-count').textContent = recipe.steps.length;
+            stepsList.innerHTML = recipe.steps.map(step => `
+                <div class="step-item">
+                    <strong>Step ${step.step}</strong>
+                    ${step.timestamp ? ' <span class="badge bg-secondary">' + step.timestamp + '</span>' : ''}
+                    <p class="mb-0 mt-2">${step.description}</p>
+                </div>
+            `).join('');
+            
+            // Setup download button
+            document.getElementById('download-json-btn').onclick = () => {
+                const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${recipe.title.replace(/ /g, '_')}.json`;
+                a.click();
+            };
+        }
+        
+        // New video button
+        document.getElementById('new-video-btn').addEventListener('click', () => {
+            location.reload();
+        });
+        
+        // Initialize
+        checkVLMStatus();
+    </script>
+</body>
+</html>
+

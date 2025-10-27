@@ -1,0 +1,17 @@
+{
+  "video_path": "/mnt/c/Users/13077/Desktop/cookify2/src/ui/uploads/4b4504d1-fa87-45e5-9dc1-8b0d0c4acb79.mp4",
+  "processing_time": 5296.468604803085,
+  "frames_analyzed": 20,
+  "recipe": {
+    "title": "4B4504D1-Fa87-45E5-9Dc1-8B0D0C4Acb79",
+    "ingredients": [],
+    "steps": [],
+    "tools": [],
+    "cuisine": null,
+    "estimated_time": null
+  },
+  "metadata": {
+    "vlm_enabled": true,
+    "model": "llava:7b"
+  }
+}

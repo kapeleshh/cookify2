@@ -1,0 +1,422 @@
+{
+  "19d716c56afa8812d03eed0f5c3ef8a1": {
+    "response": " ```json\n[\n  {\"name\": \"chicken breast\", \"quantity\": \"1\", \"unit\": \"piece\", \"state\": \"raw\"},\n  {\"name\": \"salt\", \"quantity\": \"to taste\", \"unit\": \"pinch\", \"state\": \"raw\"}\n]\n``` ",
+    "prompt": "Analyze this cooking video frame and identify ALL visible ingredients.\n\nFor each ingredient, provide:\n1. Ingredient name\n2. Estimated quantity (if visible)\n3. Unit of measurement (cups, tablespoons, pieces, etc.)\n4. State/preparation (raw, chopped, diced, etc.)\n\nFormat your response as a JSON list:\n[\n  {\"name\": \"ingredient\", \"quantity\": \"amount\", \"unit\": \"unit\", \"state\": \"state\"},\n  ...\n]\n\nIf quantities are not visible, estimate based on visual appearance or use \"to taste\".\nOnly list ingredients that are clearly visible in the frame.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 128.8564043045044
+  },
+  "b099c4c288134f38ba047c22d992e4b9": {
+    "response": " ```json\n{\n  \"action\": \"preparing food\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is holding a raw piece of meat, possibly chicken or pork, in their hand. They are about to place it into an open container, which appears to be a plastic container with a lid, likely for storage or cooking purposes.\",\n  \"technique\": \"raw food handling\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 58.79165434837341
+  },
+  "fb7e6fce056d2a87dc7197455a2b6366": {
+    "response": " ```json\n{\n  \"tool1\": \"Chicken in a container\",\n  \"tool2\": \"Container holding the chicken\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 38.16870307922363
+  },
+  "aa59575b961b5498957b73ca4b72e969": {
+    "response": " 1. The image shows an early stage of cooking, specifically the preparation phase. This is evident because the raw meat has not been cooked yet and is still in its uncooked form.\n2. The cook appears to be preparing to cook the meat, possibly for a meal or dish that requires it to be cooked.\n3. The next step in the process would typically involve seasoning the meat with spices, herbs, or marinades, then cooking it using a method such as grilling, baking, or frying.\n4. There are no visible temperature or time indicators in this image.\n5. The approximate state of doneness/completion is at the very beginning of the cooking process, as the meat has not been cooked yet and remains raw. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 53.41441035270691
+  },
+  "eec670133244fd9214dcfa9c6242f4e5": {
+    "response": " ```json\n{\n  \"action\": \"preparing meat for cooking\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is reaching into a container filled with raw chicken pieces, possibly to season or handle them before cooking.\",\n  \"technique\": \"handling raw meat\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 51.814820766448975
+  },
+  "4b9de230421989293e2e3347227dbc48": {
+    "response": " ```json\n{\n  \"tool1\": \"Knife\",\n  \"tool2\": \"Spatula\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 15.87656021118164
+  },
+  "7fafd5c3bd30d32c1d6d1b6abd7b9cb7": {
+    "response": " ```json\n[\n  {\"name\": \"chicken\", \"quantity\": \"4 pieces\", \"unit\": \"\", \"state\": \"raw\"},\n  {\"name\": \"garlic cloves\", \"quantity\": \"3\", \"unit\": \"\", \"state\": \"whole\"}\n]\n``` ",
+    "prompt": "Analyze this cooking video frame and identify ALL visible ingredients.\n\nFor each ingredient, provide:\n1. Ingredient name\n2. Estimated quantity (if visible)\n3. Unit of measurement (cups, tablespoons, pieces, etc.)\n4. State/preparation (raw, chopped, diced, etc.)\n\nFormat your response as a JSON list:\n[\n  {\"name\": \"ingredient\", \"quantity\": \"amount\", \"unit\": \"unit\", \"state\": \"state\"},\n  ...\n]\n\nIf quantities are not visible, estimate based on visual appearance or use \"to taste\".\nOnly list ingredients that are clearly visible in the frame.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 39.3211874961853
+  },
+  "87e1ce79114d6984e3dbc491706588ee": {
+    "response": " 1. This image shows the prep stage of cooking, as the person is preparing the raw chicken pieces for cooking.\n2. The cook appears to be trying to achieve even seasoning and portioning of the meat before it goes into the oven or another cooking method.\n3. The next step in the process would likely involve placing the seasoned chicken pieces into a preheated oven or other cooking appliance, such as an air fryer or grill.\n4. There are no visible temperature or time indicators in this image to determine the exact cooking conditions or duration required.\n5. The approximate state of doneness/completion is at the beginning stage of the cooking process, as the chicken pieces are still raw and uncooked. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 41.56658124923706
+  },
+  "efff04390bda3ba953f81074b0f4ca02": {
+    "response": " ```json\n{\n  \"action\": \"sorting or organizing\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is sorting through a container of raw chicken pieces, possibly preparing them for cooking.\",\n  \"technique\": \"organizing\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 39.53297424316406
+  },
+  "23647cda0e41612874ea40b5b1180273": {
+    "response": " ```json\n{\n  \"tool1\": \"Chicken in a container\",\n  \"tool2\": \"Hand reaching into the container\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 20.588468551635742
+  },
+  "1b39b3528b7d4b103f10ad7c5e9f739e": {
+    "response": " ```json\n[\n  {\"name\": \"chicken wings\", \"quantity\": \"10\", \"unit\": \"pieces\", \"state\": \"raw\"},\n  {\"name\": \"chicken drumsticks\", \"quantity\": \"6\", \"unit\": \"pieces\", \"state\": \"raw\"}\n]\n``` ",
+    "prompt": "Analyze this cooking video frame and identify ALL visible ingredients.\n\nFor each ingredient, provide:\n1. Ingredient name\n2. Estimated quantity (if visible)\n3. Unit of measurement (cups, tablespoons, pieces, etc.)\n4. State/preparation (raw, chopped, diced, etc.)\n\nFormat your response as a JSON list:\n[\n  {\"name\": \"ingredient\", \"quantity\": \"amount\", \"unit\": \"unit\", \"state\": \"state\"},\n  ...\n]\n\nIf quantities are not visible, estimate based on visual appearance or use \"to taste\".\nOnly list ingredients that are clearly visible in the frame.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 35.47920894622803
+  },
+  "592b4aa1163bddbaa73195e88ca5407b": {
+    "response": " ```json\n{\n  \"tool1\": \"Cutting board\",\n  \"tool2\": \"Knife\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 112.49983286857605
+  },
+  "aef11060d5d3e5d66f7da9d32a2f55d8": {
+    "response": " ```json\n{\n  \"tool1\": \"Measuring cup\",\n  \"tool2\": \"Spoon\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 29.58597159385681
+  },
+  "2486de3ba6e03005e9f3c35154432f35": {
+    "response": " ```json\n{\n  \"action\": \"pouring\",\n  \"confidence\": \"high\",\n  \"description\": \"A woman is pouring a green liquid from a measuring cup into a bowl or container, likely in the process of cooking or baking.\",\n  \"technique\": \"measuring and transferring ingredients\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 63.17552828788757
+  },
+  "19351f02b17521cfc0ead9fa532b6d22": {
+    "response": " ```json\n{\n  \"tool1\": \"Cooking spoon\",\n  \"tool2\": \"Measuring cup\",\n  \"tool3\": \"Kitchen countertop\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 37.19114303588867
+  },
+  "62dc4332fd0553ddba77c15a94c4b1d4": {
+    "response": " 1. The image shows a cooking stage that appears to be in the \"prep\" phase, as the cook is holding up a measuring cup filled with a yellow liquid, which could be an ingredient or a component of a sauce or batter being prepared for cooking.\n2. The cook seems to be trying to achieve a specific measurement or consistency for their recipe, possibly ensuring they have the right amount of liquid for the next step in the process.\n3. Based on the image alone, it's not possible to determine what should happen next in the cooking process without more context. However, given that the cook is holding up a measuring cup, it suggests that she might be adjusting or checking the consistency of the mixture before moving on to the next step, which could involve cooking or baking.\n4. There are no visible temperature or time indicators in this image.\n5. The approximate state of doneness/completion is not clear from the image alone, as it only shows a single moment in the cooking process and does not provide enough information to determine the overall progress or completion status of the dish being prepared. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 104.22309589385986
+  },
+  "1769eb7411da54182a31dc77d90a9ff8": {
+    "response": " ```json\n{\n  \"action\": \"pouring\",\n  \"confidence\": \"high\",\n  \"description\": \"A woman is pouring a green liquid from a measuring cup into a glass. She appears to be in the middle of cooking or preparing a drink.\",\n  \"technique\": \"measuring and pouring\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 60.72773265838623
+  },
+  "587a42a69f6e9c1a2e55d05704566bc8": {
+    "response": " ```json\n{\n  \"tool1\": \"Measuring cup\",\n  \"tool2\": \"Spatula\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 20.77184510231018
+  },
+  "1483fac05e70d34edc617b201f02763b": {
+    "response": " 1. The image shows a cooking stage that appears to be finishing, as indicated by the cook holding up a measuring cup with what looks like a sauce or mixture in it, suggesting she has just prepared or is about to add this ingredient to a dish.\n2. The cook seems to be trying to achieve consistency or portion control for her recipe, as evidenced by the measuring cup.\n3. The next step in the process would likely involve incorporating the contents of the measuring cup into the main dish or sauce being prepared. This could involve mixing it with other ingredients on the stove or in a separate container.\n4. There are no visible temperature or time indicators in this image, so it's not possible to determine if the cook is following a specific recipe that requires precise timing or temperature control.\n5. The approximate state of doneness/completion appears to be at the end of the cooking process, as the cook is holding up the measuring cup, which suggests she has just completed a step in her recipe and is about to move on to the next one. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 51.497766971588135
+  },
+  "ee2cc475af5d719db1bd6df4f8ef58f7": {
+    "response": " ```json\n{\n  \"action\": \"stirring\",\n  \"confidence\": \"high\",\n  \"description\": \"A woman is stirring a pot of food on the stove, possibly preparing a dish that requires constant stirring for even cooking.\",\n  \"technique\": \"constant stirring\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 42.899646520614624
+  },
+  "589d8d279cb345b551032e6353d266fb": {
+    "response": " ```json\n{\n  \"tool1\": \"Spoon\",\n  \"tool2\": \"Measuring cup\",\n  \"tool3\": \"Tea pot\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 20.732455492019653
+  },
+  "24b884fbdfdd02205e365d119d770def": {
+    "response": " 1. The image shows a person in the prep stage of cooking, as they are holding a measuring cup filled with an ingredient, likely preparing to add it into a dish or mixture that is not visible in this frame.\n2. The cook appears to be trying to achieve a specific quantity or measurement of the ingredient being added, which could be for a recipe that requires precise measurements.\n3. The next step in the process would typically involve adding the measured ingredient to the dish or mixture it is intended for, and then continuing with the cooking steps as appropriate for the recipe.\n4. There are no visible temperature or time indicators in this frame.\n5. Based on the image alone, it's difficult to determine the exact state of doneness or completion without more context about the dish being prepared or the recipe being followed. However, since the cook is actively measuring and adding ingredients, it can be inferred that they are still in the early stages of cooking. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 63.63471174240112
+  },
+  "6a603b5809214653e19850aba6b41024": {
+    "response": " ```json\n{\n  \"action\": \"stirring\",\n  \"confidence\": \"high\",\n  \"description\": \"A woman is stirring a sauce or mixture in a pot with a spoon, likely preparing a dish that requires mixing.\",\n  \"technique\": \"Stirring is an essential cooking technique used to combine ingredients thoroughly and ensure even cooking. In this case, the woman appears to be carefully stirring the contents of the pot, which could be a sauce or batter, ensuring it's well mixed and preventing any sticking or burning on the bottom of the pan.\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 43.9886269569397
+  },
+  "90bae332feec164f96b86f7f21a249d0": {
+    "response": " ```json\n{\n  \"tool1\": \"Spatula\",\n  \"tool2\": \"Measuring cup\",\n  \"tool3\": \"Kitchen countertop\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 27.625717401504517
+  },
+  "73821901f09c08b44ab16001b079eeba": {
+    "response": " 1. The image shows a cooking stage that appears to be in the finishing or plating phase, as the cook is holding a spoon with a sauce or ingredient and seems to be either adding it to a dish or preparing to serve it.\n2. The cook's goal is likely to enhance the flavor of the dish they are preparing, possibly by adding a final touch or garnish.\n3. The next step in the process would typically involve transferring the prepared dish from the cooking area to the serving area, ensuring that all components of the meal are ready and properly arranged for presentation.\n4. There are no visible temperature or time indicators in this frame.\n5. The approximate state of doneness/completion is not fully evident without more context about the dish being prepared. However, since the cook is holding a spoon with an ingredient, it suggests that the main cooking process has been completed and the focus is now on finishing touches or presentation. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 88.06119418144226
+  },
+  "f6a54ad4f038dfb179e5564df303cd20": {
+    "response": " ```json\n{\n  \"action\": \"stirring\",\n  \"confidence\": \"high\",\n  \"description\": \"A woman is stirring a pot of food on the stove, possibly preparing a dish that requires constant stirring for even cooking or to prevent sticking.\",\n  \"technique\": \"The technique being demonstrated here is the importance of continuous stirring in cooking, which can help ensure even heat distribution and prevent ingredients from sticking to the bottom of the pan.\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 43.626054763793945
+  },
+  "f57df8cabf98335472af638a72e81ef2": {
+    "response": " ```json\n{\n  \"tool1\": \"Measuring cup\",\n  \"tool2\": \"Spatula\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 14.768359899520874
+  },
+  "5d2c450dc5546dbfc11484e91f99e9bd": {
+    "response": " 1. The image shows a cooking stage that appears to be finishing, as indicated by the cook holding a spoon with a sauce or mixture ready for plating or further processing.\n2. The cook is trying to achieve a well-prepared dish, as suggested by her attentive posture and the careful handling of the spoon.\n3. The next step in the process would likely involve transferring the contents from the spoon onto a plate or into another container for further cooking or preparation.\n4. There are no visible temperature or time indicators in this frame, so it's not possible to determine the exact stage of cooking or the elapsed time.\n5. The approximate state of doneness/completion is that the dish appears to be ready for plating or serving, as the cook has carefully spooned out a portion and is holding it up, possibly for presentation or tasting. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 74.52942776679993
+  },
+  "357af9341314800545fcde528b2af0a7": {
+    "response": " ```json\n[\n  {\"name\": \"ingredient\", \"quantity\": \"1\", \"unit\": \"cup\", \"state\": \"raw\"},\n  {\"name\": \"ingredient\", \"quantity\": \"to taste\", \"unit\": \"\", \"state\": \"raw\"}\n]\n``` ",
+    "prompt": "Analyze this cooking video frame and identify ALL visible ingredients.\n\nFor each ingredient, provide:\n1. Ingredient name\n2. Estimated quantity (if visible)\n3. Unit of measurement (cups, tablespoons, pieces, etc.)\n4. State/preparation (raw, chopped, diced, etc.)\n\nFormat your response as a JSON list:\n[\n  {\"name\": \"ingredient\", \"quantity\": \"amount\", \"unit\": \"unit\", \"state\": \"state\"},\n  ...\n]\n\nIf quantities are not visible, estimate based on visual appearance or use \"to taste\".\nOnly list ingredients that are clearly visible in the frame.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 130.91292119026184
+  },
+  "2635a664dbbb310522bbda98d93bde70": {
+    "response": " ```json\n{\n  \"action\": \"pouring\",\n  \"confidence\": \"high\",\n  \"description\": \"A woman is pouring a liquid from a cup into a glass or container, possibly in the process of making a drink or preparing food.\",\n  \"technique\": \"Pouring technique\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 46.51283073425293
+  },
+  "1d0d54d94beab2c5e97a7a4eca9a5a12": {
+    "response": " ```json\n{\n  \"tool1\": \"Cooking spoon\",\n  \"tool2\": \"Measuring cup\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 28.510644674301147
+  },
+  "f1b78e81168b12cd868d7bae3e967274": {
+    "response": " 1. The image shows a cooking stage that appears to be in the finishing or plating phase, as the cook is holding a spoon with a sauce or ingredient on it, which suggests they are either adding a final touch to the dish or preparing to serve it.\n2. The cook seems to be trying to achieve a balanced flavor profile for their meal, possibly by adding a sauce or garnish that complements the main dish.\n3. The next step in the process would likely involve transferring the contents of the spoon onto the dish being prepared, which could be a salad, a bowl of food, or a plate ready to be served.\n4. There are no visible temperature or time indicators in this image.\n5. Based on the cook's action and the context provided by the image, it is difficult to determine the exact state of doneness or completion without more information about the dish being prepared. However, since the cook is holding a spoon with sauce or ingredient, it can be inferred that they are either finishing up the preparation or serving the dish. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 91.96156883239746
+  },
+  "2ee9ba6e7e02295ee625a8c031c9890c": {
+    "response": " ```json\n{\n  \"action\": \"stirring\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is stirring a dish in a pot, which appears to be a stew or soup with chunks of meat and vegetables.\",\n  \"technique\": \"The technique being demonstrated here is the proper way to mix ingredients during cooking. This ensures even distribution of flavors and prevents sticking on the bottom of the pot.\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 43.671836853027344
+  },
+  "31fbe2bbc31e2098dc0b29e205c3b4cb": {
+    "response": " ```json\n{\n  \"tool1\": \"Knife\",\n  \"tool2\": \"Spatula\",\n  \"tool3\": \"Measuring cup\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 21.26096272468567
+  },
+  "5a80eb7f9cb655fd1c385a273aac5be7": {
+    "response": " 1. The image shows a stage that appears to be near the end of cooking, as indicated by the presence of cooked meat and vegetables in the tray. This suggests that the cook has already prepared and cooked the ingredients, and is now likely moving towards finishing or plating the dish.\n2. The cook seems to be trying to achieve a well-balanced meal with a variety of flavors and textures, as evidenced by the combination of meat, vegetables, and sauce in the tray.\n3. The next step in the process would likely involve adding any final touches or garnishes, such as drizzling additional sauce, sprinkling herbs, or arranging the dish on a plate for serving.\n4. There are no visible temperature or time indicators in this image that provide specific information about the cooking process. However, the fact that the food is already cooked suggests that it has reached its desired internal temperature and has been cooked for an appropriate amount of time.\n5. The approximate state of doneness/completion appears to be at a stage where the ingredients are fully cooked but have not yet been plated or garnished. This could indicate that the cook is in the process of finishing the dish before serving it. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 107.14581418037415
+  },
+  "096aef1660fdebdd64cc2fd45407ab3b": {
+    "response": " ```json\n{\n  \"action\": \"stirring\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is stirring a dish in a pot, with their hand visible in the frame. The dish appears to be a stew or soup with chunks of meat and vegetables.\",\n  \"technique\": \"The technique being demonstrated here is stirring, which helps to evenly distribute heat, flavors, and ingredients throughout the dish.\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 61.72358965873718
+  },
+  "538ef529e1e0f69d4ca89f5abc5c8fd2": {
+    "response": " ```json\n{\n  \"tool1\": \"Tongs\",\n  \"tool2\": \"Knife\",\n  \"tool3\": \"Spatula\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 28.40886116027832
+  },
+  "17cb6eabe7112e1a52eb80659961ed6e": {
+    "response": " 1. The stage of cooking shown in this frame appears to be finishing, as the dish is already prepared and ready for plating.\n2. The cook seems to be trying to achieve a balanced presentation with the food, possibly adding garnishes or final touches before serving.\n3. The next step would likely involve plating the dish, ensuring that it looks appealing and appetizing.\n4. There are no visible temperature or time indicators in this image.\n5. The approximate state of doneness/completion is 100%, as the dish is fully prepared and ready to be served. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 49.0586371421814
+  },
+  "2de3d128f88b26abb91eec31781646aa": {
+    "response": " ```json\n{\n  \"action\": \"stirring\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is stirring a dish in a pot, possibly preparing a meal with meat and potatoes.\",\n  \"technique\": \"Stirring is an essential cooking technique that helps to evenly distribute ingredients, prevent sticking or burning, and ensure thorough mixing of flavors.\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 45.3955295085907
+  },
+  "efd951e2577039578e7db6a884d314cf": {
+    "response": " ```json\n{\n  \"tool1\": \"Tongs\",\n  \"tool2\": \"Knife\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 25.204386711120605
+  },
+  "5ac6e2ad3d92c5fa51537c4c76eb92a0": {
+    "response": " 1. The image shows a stage of cooking that appears to be in the preparation phase, as the cook is arranging ingredients and seasoning before cooking.\n2. The cook is trying to achieve a well-seasoned, flavorful dish with a balance of flavors from the various ingredients.\n3. The next step in the process would likely involve placing the prepared meat into an oven or other cooking device to cook it.\n4. There are no visible temperature or time indicators in this image.\n5. Based on the image, the approximate state of doneness/completion is that the ingredients have been prepped and are ready for cooking. The cook is in the process of adding final touches before moving on to the actual cooking stage. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 65.41443872451782
+  },
+  "9294e12086da18d645f14b5afa298500": {
+    "response": " ```json\n{\n  \"action\": \"stirring\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is stirring a dish in a pot, which appears to be cooking on the stove. The dish contains chicken and potatoes.\",\n  \"technique\": \"The technique being demonstrated here is stirring or mixing ingredients during the cooking process, ensuring even distribution of flavors and preventing sticking or burning.\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 58.46658945083618
+  },
+  "aa522d203953ded941d032697f11f274": {
+    "response": " ```json\n{\n  \"tool1\": \"Tongs\",\n  \"tool2\": \"Knife\",\n  \"tool3\": \"Spatula\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 32.61758065223694
+  },
+  "629230d90e0bce60be734abcc631e815": {
+    "response": " 1. The image shows a stage of cooking that appears to be in the preparation phase, as the cook is arranging ingredients on a tray before they are cooked.\n2. The cook seems to be trying to achieve a well-seasoned and evenly coated dish, possibly preparing for baking or roasting, given the presence of potatoes and what looks like a sauce or marinade.\n3. The next step in the process would likely involve placing the tray with the prepared ingredients into an oven or other cooking device to cook them until they are tender and cooked through.\n4. There are no visible temperature or time indicators, so it's not possible to determine the exact cooking conditions or duration from this image alone.\n5. The approximate state of doneness/completion is that the ingredients are ready for cooking; they have been prepared with sauce or marinade and are now waiting to be cooked. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 69.41569399833679
+  },
+  "bdfc218024695535c985a9cfddc48641": {
+    "response": " ```json\n[\n  {\"name\": \"chicken\", \"quantity\": \"10 pieces\", \"unit\": \"pieces\", \"state\": \"raw\"},\n  {\"name\": \"potatoes\", \"quantity\": \"to taste\", \"unit\": \"pieces\", \"state\": \"raw\"}\n]\n``` ",
+    "prompt": "Analyze this cooking video frame and identify ALL visible ingredients.\n\nFor each ingredient, provide:\n1. Ingredient name\n2. Estimated quantity (if visible)\n3. Unit of measurement (cups, tablespoons, pieces, etc.)\n4. State/preparation (raw, chopped, diced, etc.)\n\nFormat your response as a JSON list:\n[\n  {\"name\": \"ingredient\", \"quantity\": \"amount\", \"unit\": \"unit\", \"state\": \"state\"},\n  ...\n]\n\nIf quantities are not visible, estimate based on visual appearance or use \"to taste\".\nOnly list ingredients that are clearly visible in the frame.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 124.62449550628662
+  },
+  "18c88881fdde325c4f2ad998032843a7": {
+    "response": " ```json\n{\n  \"action\": \"cooking\",\n  \"confidence\": \"medium\",\n  \"description\": \"A person is cooking a meal in a kitchen, with a tray of chicken and potatoes visible. The image shows the food being prepared on a stove or oven.\",\n  \"technique\": \"roasting\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 31.916595697402954
+  },
+  "83e27fe9ac7bc6fe1e7e942a2a412516": {
+    "response": " ```json\n{\n  \"tool1\": \"Chicken in a pan\",\n  \"tool2\": \"Pot with potatoes\",\n  \"tool3\": \"Spatula for serving\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 34.420400857925415
+  },
+  "37caa8c9caf676ac639e533bc0feacd1": {
+    "response": " 1. The image shows a stage that appears to be near the end of cooking, as the chicken pieces are already in a pan and seem to have been cooked or are being prepared for baking. This is likely the finishing stage before plating.\n2. The cook seems to be trying to achieve a flavorful and well-cooked dish, as indicated by the presence of seasoning on the chicken pieces and the fact that they are in a pan with potatoes, which suggests a roast or stew preparation.\n3. The next step should involve placing the pan into an oven for baking if it hasn't been done already. This would allow the flavors to meld together and the chicken to achieve a crispy skin and tender interior.\n4. There are no visible temperature or time indicators in this image, so it is not possible to determine the exact cooking conditions or duration.\n5. The approximate state of doneness/completion appears to be that the chicken pieces have been seasoned and are ready for baking. The potatoes seem to be partially cooked as well. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 95.24494218826294
+  },
+  "b9e1a0d99ef7e3b5481094458ef4ca97": {
+    "response": " ```json\n{\n  \"action\": \"serving\",\n  \"confidence\": \"high\",\n  \"description\": \"A plate of food is being served, consisting of a piece of meat (possibly chicken) and potatoes. The dish appears to be ready for consumption.\",\n  \"technique\": \"plating\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 51.031578063964844
+  },
+  "92c73945f0f1b390408d9b09aa3c60b0": {
+    "response": " ```json\n{\n  \"tool1\": \"Plate\",\n  \"tool2\": \"Spoon\",\n  \"tool3\": \"Bottle\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 30.051817893981934
+  },
+  "ef641396b208d2b8ddb05198f8d84ad9": {
+    "response": " 1. The image shows a stage that appears to be finishing, as the chicken has been cooked and is ready for plating.\n2. The cook seems to be trying to achieve a well-cooked, flavorful chicken dish with a side of potatoes, possibly seasoned with herbs or spices.\n3. The next step in the process would likely involve plating the chicken and potatoes, garnishing if desired, and adding any final touches such as sauce or additional seasoning.\n4. There are no visible temperature or time indicators in the image to determine the exact cooking method or duration.\n5. Based on the appearance of the chicken, it appears to be fully cooked through, with a golden-brown exterior indicating that it has been seared or grilled. The potatoes look soft and well-cooked, suggesting they have reached their desired level of doneness. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 62.79079508781433
+  },
+  "78a96cad1b8685163b70d16d53e273bd": {
+    "response": " ```json\n{\n  \"action\": \"serving\",\n  \"confidence\": \"high\",\n  \"description\": \"A plate of food is being served, with a fork and spoon resting on it.\",\n  \"technique\": \"None\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 36.6031596660614
+  },
+  "7cf362fb25dd54496b453d4d7325c7cf": {
+    "response": " ```json\n{\n  \"tool1\": \"Fork\",\n  \"tool2\": \"Plate\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 16.785165548324585
+  },
+  "b2a0563332230be59533f3ca7cbfeada": {
+    "response": " 1. The image shows a stage that appears to be finishing, as the chicken is already cooked and glazed with sauce, indicating it's ready for plating.\n2. The cook is trying to achieve a well-cooked, flavorful chicken dish with a glossy finish on the skin, suggesting a focus on presentation and taste.\n3. The next step in the process would be to plate the cooked chicken along with any accompanying sides or garnishes, such as potatoes and sauce.\n4. There are no visible temperature or time indicators in this image. However, the fact that the chicken is fully cooked suggests it has reached an internal temperature of at least 165\u00b0F (74\u00b0C), which is safe for consumption.\n5. The approximate state of doneness/completion appears to be 100%, as the chicken is fully cooked and ready to be served. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 84.80344605445862
+  },
+  "e663fb6729e8feee0c0c3c8eb5cf061e": {
+    "response": " ```json\n{\n  \"action\": \"serving\",\n  \"confidence\": \"high\",\n  \"description\": \"A person is serving a meal onto a plate, which includes meat and potatoes. The food appears to be well-prepared and ready to eat.\",\n  \"technique\": \"plating\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 49.07982039451599
+  },
+  "1acafb4785ebb48917d974cde9e888fc": {
+    "response": " ```json\n{\n  \"tool1\": \"Spatula\",\n  \"tool2\": \"Knife\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 20.81179976463318
+  },
+  "cdf3a304f0837ce7eb5fea1bca08a0e6": {
+    "response": " 1. The stage of cooking shown in this frame appears to be finishing, as the dish is already cooked and ready for plating.\n2. The cook seems to be trying to achieve a well-balanced meal with protein (meat) and carbohydrates (potatoes), possibly aiming for a hearty or comfort food style of cuisine.\n3. The next step in the process would likely involve adding any final touches, such as garnishing or seasoning, before plating the dish.\n4. There are no visible temperature or time indicators in this image.\n5. The approximate state of doneness/completion is that the meat appears to be cooked through and the potatoes are softened, suggesting that the cooking process has reached its end. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 65.46691846847534
+  },
+  "f71ef5221452236ebc64c92929d94939": {
+    "response": " ```json\n{\n  \"action\": \"eating\",\n  \"confidence\": \"high\",\n  \"description\": \"A woman is eating food from a spoon, with the food being held up to her mouth.\",\n  \"technique\": \"none\"\n}\n``` ",
+    "prompt": "What cooking action or technique is being performed in this frame?\n\nProvide:\n1. Primary action (e.g., chopping, stirring, saut\u00e9ing, mixing)\n2. Confidence level (high/medium/low)\n3. Brief description of what's happening\n4. Any relevant cooking techniques being demonstrated\n\nFormat as JSON:\n{\n  \"action\": \"primary_action\",\n  \"confidence\": \"high/medium/low\",\n  \"description\": \"brief description\",\n  \"technique\": \"specific technique if applicable\"\n}",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 42.41983246803284
+  },
+  "0b4d76c420e1365e32ef3d9c3ad2d208": {
+    "response": " ```json\n{\n  \"tool1\": \"Spatula\",\n  \"tool2\": \"Knife\",\n  \"tool3\": \"Spoon\",\n  \"tool4\": \"Bowl\",\n  \"tool5\": \"Oven\"\n}\n``` ",
+    "prompt": "List all cooking tools and equipment visible in this frame.\n\nInclude:\n- Utensils (knives, spoons, spatulas, etc.)\n- Cookware (pans, pots, bowls, etc.)\n- Appliances (stove, oven, mixer, etc.)\n- Measuring tools\n\nFormat as JSON list:\n[\"tool1\", \"tool2\", ...]\n\nOnly list items that are clearly visible.",
+    "model": "llava:7b",
+    "temperature": 0.1,
+    "inference_time": 32.64411544799805
+  },
+  "3318bb460bbde4cd3eba04ac1a9c3f37": {
+    "response": " 1. The stage of cooking shown in this frame appears to be \"prep\" or \"finishing,\" as the cook is seen eating from a spoon, which suggests that she has finished preparing the dish and is either tasting it for seasoning or enjoying a bite before serving.\n2. The cook seems to be trying to achieve a delicious and well-prepared meal, as indicated by her focused expression and the act of sampling the food.\n3. In the next stage of cooking, the cook should continue to taste and adjust the flavors if necessary, then proceed to plate the dish and serve it.\n4. There are no visible temperature or time indicators in this image that would provide information about the current state of doneness or completion.\n5. The approximate state of doneness/completion is not clearly visible from this single frame. However, given the context of tasting and finishing, it can be inferred that the dish is likely nearing completion but may require a final taste to ensure it meets the desired level of seasoning and texture. ",
+    "prompt": "Analyze the cooking process shown in this frame.\n\nDescribe:\n1. What stage of cooking is this? (prep, cooking, finishing, plating)\n2. What is the cook trying to achieve?\n3. What should happen next in the process?\n4. Are there any visible temperature or time indicators?\n5. What is the approximate state of doneness/completion?\n\nProvide a detailed but concise analysis.",
+    "model": "llava:7b",
+    "temperature": 0.2,
+    "inference_time": 69.94402885437012
+  }
+}

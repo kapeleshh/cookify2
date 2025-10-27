@@ -1,0 +1,92 @@
+{
+  "video_path": "/mnt/c/Users/13077/Desktop/cookify2/src/ui/uploads_traditional/7e7d6399-146b-4de3-a8f6-8be7ed0ef9a1.mp4",
+  "processing_time": 366.3459486961365,
+  "frames_analyzed": 15,
+  "recipe": {
+    "title": "7E7D6399-146B-4De3-A8F6-8Be7Ed0Ef9A1",
+    "ingredients": [
+      {
+        "name": "Various Ingredients",
+        "quantity": "8",
+        "unit": "",
+        "state": "",
+        "source": "yolo_detection"
+      },
+      {
+        "name": "Carrot",
+        "quantity": "6",
+        "unit": "",
+        "state": "",
+        "source": "yolo_detection"
+      },
+      {
+        "name": "Liquid Ingredient (Oil/Sauce)",
+        "quantity": "2",
+        "unit": "",
+        "state": "",
+        "source": "yolo_detection"
+      },
+      {
+        "name": "Orange",
+        "quantity": "",
+        "unit": "",
+        "state": "",
+        "source": "yolo_detection"
+      },
+      {
+        "name": "Banana",
+        "quantity": "",
+        "unit": "",
+        "state": "",
+        "source": "yolo_detection"
+      }
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "description": "Mixing the ingredients",
+        "timestamp": "~10s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 2,
+        "description": "Stirring the ingredients",
+        "timestamp": "~20s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 3,
+        "description": "Serving the ingredients",
+        "timestamp": "~30s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 4,
+        "description": "Pouring the ingredients",
+        "timestamp": "~40s",
+        "source": "action_recognition"
+      },
+      {
+        "step": 5,
+        "description": "Seasoning the ingredients",
+        "timestamp": "~50s",
+        "source": "action_recognition"
+      }
+    ],
+    "tools": [
+      "bowl"
+    ],
+    "cuisine": "Asian/Vegetarian",
+    "estimated_time": null
+  },
+  "metadata": {
+    "method": "traditional_cv",
+    "vlm_enabled": false,
+    "techniques": [
+      "yolo",
+      "easyocr",
+      "scenedetect",
+      "heuristics"
+    ]
+  }
+}

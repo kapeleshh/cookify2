@@ -1,0 +1,78 @@
+{
+  "video_path": "/mnt/c/Users/13077/Desktop/cookify2/src/ui/uploads_traditional/46056f20-cb34-4ab2-8f11-e840a15243f5.mp4",
+  "processing_time": 2.1795284748077393,
+  "frames_analyzed": 10,
+  "recipe": {
+    "title": "46056F20-Cb34-4Ab2-8F11-E840A15243F5 (Traditional Analysis)",
+    "ingredients": [
+      {
+        "name": "Main ingredient",
+        "quantity": "2",
+        "unit": "cups",
+        "state": ""
+      },
+      {
+        "name": "Seasoning",
+        "quantity": "to taste",
+        "unit": "",
+        "state": ""
+      },
+      {
+        "name": "Oil",
+        "quantity": "1",
+        "unit": "tbsp",
+        "state": ""
+      }
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "description": "Prepare all ingredients by washing and chopping",
+        "timestamp": "~0s"
+      },
+      {
+        "step": 2,
+        "description": "Heat oil in a pan over medium heat",
+        "timestamp": "~2s"
+      },
+      {
+        "step": 3,
+        "description": "Add main ingredients and cook",
+        "timestamp": "~4s"
+      },
+      {
+        "step": 4,
+        "description": "Season and mix well",
+        "timestamp": "~6s"
+      },
+      {
+        "step": 5,
+        "description": "Continue cooking until done",
+        "timestamp": "~8s"
+      },
+      {
+        "step": 6,
+        "description": "Serve hot",
+        "timestamp": "~10s"
+      }
+    ],
+    "tools": [
+      "pan",
+      "knife",
+      "cutting board",
+      "spatula",
+      "bowl"
+    ],
+    "cuisine": "Indian/Mexican (red-based)",
+    "estimated_time": null
+  },
+  "metadata": {
+    "method": "traditional",
+    "vlm_enabled": false,
+    "techniques": [
+      "frame_sampling",
+      "color_analysis",
+      "heuristics"
+    ]
+  }
+}

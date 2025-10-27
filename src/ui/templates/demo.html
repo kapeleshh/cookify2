@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookify VLM Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .status-badge {
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+        }
+        #result-panel {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .analysis-result {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        #preview-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">🍳 Cookify VLM Demo</h3>
+                <span id="vlm-status-badge" class="badge status-badge">Checking...</span>
+            </div>
+            <div class="card-body">
+                <p class="lead">Test the Vision-Language Model integration for cooking video analysis</p>
+                <div id="vlm-info" class="alert alert-info" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">📸 Upload Image</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <input type="file" class="form-control" id="image-input" accept="image/*">
+                        </div>
+                        <img id="preview-image" style="display:none;">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Analysis Types:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="analysis-ingredients" checked>
+                                <label class="form-check-label" for="analysis-ingredients">Ingredients</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="analysis-actions" checked>
+                                <label class="form-check-label" for="analysis-actions">Cooking Actions</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="analysis-tools" checked>
+                                <label class="form-check-label" for="analysis-tools">Tools & Equipment</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="analysis-measurements">
+                                <label class="form-check-label" for="analysis-measurements">Measurements & Text</label>
+                            </div>
+                        </div>
+                        
+                        <button id="analyze-btn" class="btn btn-primary w-100" disabled>
+                            <span class="spinner-border spinner-border-sm" style="display:none;" id="analyze-spinner"></span>
+                            Analyze Image
+                        </button>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Custom Query:</label>
+                            <textarea class="form-control" id="custom-prompt" rows="3" placeholder="Ask anything about the image... e.g., 'What cooking technique is being shown?'"></textarea>
+                        </div>
+                        
+                        <button id="query-btn" class="btn btn-secondary w-100" disabled>
+                            <span class="spinner-border spinner-border-sm" style="display:none;" id="query-spinner"></span>
+                            Send Custom Query
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">📊 Analysis Results</h5>
+                    </div>
+                    <div class="card-body" id="result-panel">
+                        <p class="text-muted">Upload an image and click "Analyze" to see results...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let selectedFile = null;
+
+        // Check VLM status on page load
+        async function checkVLMStatus() {
+            try {
+                const response = await fetch('/api/vlm/status');
+                const data = await response.json();
+                
+                const badge = document.getElementById('vlm-status-badge');
+                const info = document.getElementById('vlm-info');
+                
+                if (data.connected) {
+                    badge.className = 'badge status-badge bg-success';
+                    badge.textContent = `✓ VLM Active (${data.model})`;
+                    info.textContent = `Connected to Ollama. Available models: ${data.available_models.join(', ')}`;
+                    info.style.display = 'block';
+                    document.getElementById('analyze-btn').disabled = false;
+                    document.getElementById('query-btn').disabled = false;
+                } else if (data.enabled) {
+                    badge.className = 'badge status-badge bg-warning';
+                    badge.textContent = '⚠ VLM Disconnected';
+                    info.className = 'alert alert-warning';
+                    info.textContent = 'VLM is enabled but cannot connect to Ollama. Please ensure Ollama is running.';
+                    info.style.display = 'block';
+                } else {
+                    badge.className = 'badge status-badge bg-secondary';
+                    badge.textContent = 'VLM Disabled';
+                    info.className = 'alert alert-secondary';
+                    info.textContent = 'VLM is disabled in configuration.';
+                    info.style.display = 'block';
+                }
+            } catch (error) {
+                const badge = document.getElementById('vlm-status-badge');
+                badge.className = 'badge status-badge bg-danger';
+                badge.textContent = '✗ Error';
+                console.error('Status check failed:', error);
+            }
+        }
+
+        // Handle image selection
+        document.getElementById('image-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                selectedFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const preview = document.getElementById('preview-image');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle analysis
+        document.getElementById('analyze-btn').addEventListener('click', async () => {
+            if (!selectedFile) {
+                alert('Please select an image first');
+                return;
+            }
+            
+            const analysisTypes = [];
+            if (document.getElementById('analysis-ingredients').checked) analysisTypes.push('ingredients');
+            if (document.getElementById('analysis-actions').checked) analysisTypes.push('actions');
+            if (document.getElementById('analysis-tools').checked) analysisTypes.push('tools');
+            if (document.getElementById('analysis-measurements').checked) analysisTypes.push('measurements');
+            
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+            formData.append('analysis_types', analysisTypes.join(','));
+            
+            const btn = document.getElementById('analyze-btn');
+            const spinner = document.getElementById('analyze-spinner');
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            
+            try {
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError('Analysis failed: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                spinner.style.display = 'none';
+            }
+        });
+
+        // Handle custom query
+        document.getElementById('query-btn').addEventListener('click', async () => {
+            if (!selectedFile) {
+                alert('Please select an image first');
+                return;
+            }
+            
+            const prompt = document.getElementById('custom-prompt').value.trim();
+            if (!prompt) {
+                alert('Please enter a query');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+            formData.append('prompt', prompt);
+            
+            const btn = document.getElementById('query-btn');
+            const spinner = document.getElementById('query-spinner');
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            
+            try {
+                const response = await fetch('/api/query', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                displayCustomQueryResult(data);
+            } catch (error) {
+                displayError('Query failed: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                spinner.style.display = 'none';
+            }
+        });
+
+        function displayResults(data) {
+            const panel = document.getElementById('result-panel');
+            if (data.success) {
+                let html = '<h6 class="fw-bold">Analysis Complete</h6>';
+                
+                for (const [type, result] of Object.entries(data.analysis)) {
+                    html += `
+                        <div class="analysis-result">
+                            <h6 class="text-primary text-capitalize">${type}</h6>
+                            <pre class="mb-0">${JSON.stringify(result, null, 2)}</pre>
+                        </div>
+                    `;
+                }
+                
+                panel.innerHTML = html;
+            } else {
+                displayError(data.error || 'Analysis failed');
+            }
+        }
+
+        function displayCustomQueryResult(data) {
+            const panel = document.getElementById('result-panel');
+            if (data.success) {
+                panel.innerHTML = `
+                    <div class="analysis-result">
+                        <h6 class="text-primary">Custom Query</h6>
+                        <p class="text-muted small mb-2"><strong>Prompt:</strong> ${data.prompt}</p>
+                        <div class="bg-white p-3 rounded">${data.response}</div>
+                    </div>
+                `;
+            } else {
+                displayError(data.error || 'Query failed');
+            }
+        }
+
+        function displayError(message) {
+            const panel = document.getElementById('result-panel');
+            panel.innerHTML = `<div class="alert alert-danger">${message}</div>`;
+        }
+
+        // Initialize
+        checkVLMStatus();
+    </script>
+</body>
+</html>
+

@@ -12,10 +12,10 @@ from pathlib import Path
 from flask import Flask, request, render_template, jsonify, send_from_directory, redirect, url_for
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from cookify.src.pipeline import Pipeline
-from cookify.src.utils.performance_optimizer import PerformanceOptimizer
+from src.pipeline import Pipeline
+from src.utils.config_loader import load_config
 
 # Configure logging
 logging.basicConfig(
@@ -43,7 +43,6 @@ app.config['RESULTS_FOLDER'] = str(RESULTS_FOLDER)
 
 # Initialize pipeline
 pipeline = None
-optimizer = None
 
 def allowed_file(filename):
     """
@@ -59,24 +58,23 @@ def allowed_file(filename):
 
 def init_pipeline():
     """
-    Initialize the pipeline with optimizations.
+    Initialize the pipeline.
     
     Returns:
         Pipeline: Initialized pipeline.
     """
-    global pipeline, optimizer
+    global pipeline
     
     if pipeline is None:
         logger.info("Initializing pipeline")
         
+        # Load config
+        config = load_config()
+        
         # Create pipeline
-        pipeline = Pipeline()
+        pipeline = Pipeline(config_path='config.yaml')
         
-        # Optimize pipeline
-        optimizer = PerformanceOptimizer()
-        pipeline = optimizer.optimize_pipeline(pipeline)
-        
-        logger.info("Pipeline initialized and optimized")
+        logger.info("Pipeline initialized successfully")
     
     return pipeline
 

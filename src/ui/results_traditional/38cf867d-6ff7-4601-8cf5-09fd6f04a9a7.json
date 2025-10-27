@@ -1,0 +1,96 @@
+{
+  "video_path": "/mnt/c/Users/13077/Desktop/cookify2/src/ui/uploads_traditional/38cf867d-6ff7-4601-8cf5-09fd6f04a9a7.mp4",
+  "processing_time": 2.5431830883026123,
+  "frames_analyzed": 13,
+  "recipe": {
+    "title": "38Cf867D-6Ff7-4601-8Cf5-09Fd6F04A9A7 (Traditional Analysis)",
+    "ingredients": [
+      {
+        "name": "Onion",
+        "quantity": "1",
+        "unit": "medium",
+        "state": "chopped"
+      },
+      {
+        "name": "Garlic",
+        "quantity": "2",
+        "unit": "cloves",
+        "state": "minced"
+      },
+      {
+        "name": "Tomatoes",
+        "quantity": "3",
+        "unit": "medium",
+        "state": "diced"
+      },
+      {
+        "name": "Oil",
+        "quantity": "2",
+        "unit": "tbsp",
+        "state": ""
+      },
+      {
+        "name": "Salt",
+        "quantity": "1",
+        "unit": "tsp",
+        "state": ""
+      },
+      {
+        "name": "Spices",
+        "quantity": "to taste",
+        "unit": "",
+        "state": ""
+      }
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "description": "Prepare all ingredients by washing and chopping",
+        "timestamp": "~0s"
+      },
+      {
+        "step": 2,
+        "description": "Heat oil in a pan over medium heat",
+        "timestamp": "~2s"
+      },
+      {
+        "step": 3,
+        "description": "Add main ingredients and cook",
+        "timestamp": "~5s"
+      },
+      {
+        "step": 4,
+        "description": "Season and mix well",
+        "timestamp": "~7s"
+      },
+      {
+        "step": 5,
+        "description": "Continue cooking until done",
+        "timestamp": "~10s"
+      },
+      {
+        "step": 6,
+        "description": "Serve hot",
+        "timestamp": "~13s"
+      }
+    ],
+    "tools": [
+      "pan",
+      "knife",
+      "cutting board",
+      "spatula",
+      "bowl"
+    ],
+    "cuisine": "Indian/Mexican (red-based)",
+    "estimated_time": null
+  },
+  "metadata": {
+    "method": "traditional",
+    "vlm_enabled": false,
+    "techniques": [
+      "frame_sampling",
+      "color_analysis",
+      "heuristics"
+    ]
+  }
+}
